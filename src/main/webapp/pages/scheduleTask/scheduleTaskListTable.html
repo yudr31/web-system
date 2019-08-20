@@ -1,0 +1,42 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<thead>
+<tr>
+	<th class="table-data-rowNum"><input type="checkbox" group="gids" class="checkboxCtrl">序号</th>
+	<th class="table-data-id">全局ID</th>
+	<th>任务名</th>
+	<th>任务分组</th>
+	<th>定时任务配置</th>
+	<th>定时任务类</th>
+	<th>定时任务备注</th>
+	<th>任务状态</th>
+	<th>状态</th>
+	<th>更新时间</th>
+	<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<#list page.list as item>
+<#assign itemId = "${item.gid!?replace(',','')}">
+<tr rel="${itemId}" target="itemId">
+	<td><input name="gids" value="${itemId}" type="checkbox">${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+	<td><a href="task/taskViewForViewer?gid=${itemId}" target="navTab" rel="tabTaskViewer${itemId}" title="等级：${itemId}">${itemId}</a></td>
+	<td>${item.jobName!}</td>
+	<td>${item.jobGroup!}</td>
+	<td>${item.cron!}</td>
+	<td>${item.taskClass!}</td>
+	<td>${item.remark!}</td>
+	<td>${dictDataUtil('getDictLabelByValue','JobStatus',item.jobStatus)}</td>
+	<td>${dictDataUtil('getDictLabelByValue','RecordStatusType',item.recordStatus)}</td>
+	<td>${htmlUtil('formatLongDateString',item.updateTime!)}</td>
+	<td>
+		<a href="scheduleTask/scheduleTaskViewer?gid=${itemId}" target="navTab" rel="tabscheduleTask_${itemId}"
+		   title="等级ID：${itemId}" class=""> 【查看】 </a>
+		<a href="scheduleTask/scheduleTaskEditor?gid=${itemId}" target="navTab" rel="tabscheduleTask_${itemId}"
+		   title="等级ID：${itemId}" class=""> 【编辑】 </a>
+		<a href="scheduleTask/openOrCloseJobStatus?gid=${itemId}&jobStatus=${item.jobStatus}" target="navTab"
+		   rel="tabscheduleTask_${itemId}" title="等级ID：${itemId}" class=""> 【开启或关闭】 </a>
+	</td>
+</tr>
+</#list>
+</tbody>

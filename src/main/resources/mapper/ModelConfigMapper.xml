@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.boot.web.mapper.ModelConfigMapper">
+
+	<sql id="Base_Column_List" >
+        gid as "gid",
+        belong_project as "belongProject",
+        model_name as "modelName",
+        model_type as "modelType",
+        model_content as "modelContent",
+        file_name as "fileName",
+        save_path as "savePath",
+        record_status as "recordStatus",
+        update_user as "updateUser",
+        create_user as "createUser",
+        update_time as "updateTime",
+        create_time as "createTime"
+    </sql>
+
+	<select id="fetchModelConfigListByGidList" resultType="com.spring.boot.feign.pojo.web.ModelConfig">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM model_config
+		WHERE gid IN (
+			<foreach collection="gidList" item="item" separator=",">
+				#{item}
+			</foreach>
+		)
+	</select>
+
+	<select id="fetchRecordList" resultType="com.spring.boot.feign.pojo.web.ModelConfig">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM model_config s0
+		<include refid="findModelConfigWhere" />
+		ORDER BY create_time DESC
+	</select>
+
+	<sql id="findModelConfigWhere">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<include refid="modelConfigSql" />
+		</trim>
+	</sql>
+
+	<sql id="modelConfigSql">
+		<if test="gid != null">
+			AND s0.gid = #{gid,jdbcType=BIGINT}
+		</if>
+		<if test="belongProject != null and belongProject != ''">
+			AND s0.belong_project = #{belongProject,jdbcType=VARCHAR}
+		</if>
+		<if test="modelName != null and modelName != ''">
+			AND s0.model_name LIKE CONCAT('%',#{modelName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="modelType != null">
+			AND s0.model_type = #{modelType,jdbcType=INTEGER}
+		</if>
+		<if test="modelContent != null and modelContent != ''">
+			AND s0.model_content LIKE CONCAT('%',#{modelContent,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="fileName != null and fileName != ''">
+			AND s0.file_name LIKE CONCAT('%',#{fileName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="savePath != null and savePath != ''">
+			AND s0.save_path LIKE CONCAT('%',#{savePath,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="recordStatus != null">
+			AND s0.record_status = #{recordStatus,jdbcType=INTEGER}
+		</if>
+	</sql>
+
+</mapper>

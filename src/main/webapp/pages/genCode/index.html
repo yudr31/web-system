@@ -1,0 +1,82 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<form id="singleTableForm" class="search-input-form" method="post" action="genCode/querySingleTable"
+             onsubmit="return ($(this).valid() && navTabOpenTab(this))">
+    <div class="pageHeader">
+        <div class="searchBar">
+            <input type="hidden" name="moduleType" value="1">
+            <ul class="searchContent">
+                <li>
+                    <label>请输入表名：</label>
+                    <input type="text" name="tableName" class="required unSubmitBlank" value=""/>
+                </li>
+                <li>
+                    <label>所属项目：</label>
+                    <select class="combox" name="belongProject">
+                        ${dictDataUtil('getOptions','ProjectType',param!)}
+                    </select>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <a class="buttonActive" style="float: right"><span onclick="querySingleTableInfo(this)">查询单表信息</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+<form id="masterSlaveTableForm" class="search-input-form" method="post" action="genCode/queryMasterSlaveTable"
+      onsubmit="return ($(this).valid() && navTabOpenTab(this))">
+    <div class="pageHeader">
+        <div class="searchBar">
+            <input type="hidden" name="master.moduleType" value="2">
+            <ul class="searchContent">
+                <li>
+                    <label>主表表名：</label>
+                    <input type="text" name="master.tableName" class="required unSubmitBlank" value=""/>
+                </li>
+                <li>
+                    <label>所属项目：</label>
+                    <select class="combox" name="belongProject">
+                        ${dictDataUtil('getOptions','ProjectType',param!)}
+                    </select>
+                </li>
+            </ul>
+            <ul class="searchContent">
+                <li>
+                    <label>从表表名：</label>
+                    <input type="text" name="slave[0].tableName" class="required unSubmitBlank" value=""/>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li>
+                        <a class="buttonActive addSlaveTableBtn" style="float: right"><span >添加从表</span></a>
+                    </li>
+                    <li>
+                        <a class="buttonActive" style="float: right"><span onclick="queryMasterSlaveTableInfo(this)">查询主从表信息</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    function querySingleTableInfo($this) {
+        navTab.openTab("singleTableInfo", "genCode/querySingleTable",{title:"单表信息",data: $('#singleTableForm').serializeArray()});
+    }
+
+    var slaveSize = 1;
+    //添加规则
+    $(".addSlaveTableBtn").unbind("click").bind("click",function (e) {
+        var subBar = $(this).parent().parent().parent();
+        $add = subBar.prev(".searchContent");
+        var str = '<li> <label>从表表名：</label><input type="text" name="slave['+slaveSize+'].tableName" class="unSubmitBlank textInput" value=""/></li>';
+        $add.append(str);
+        slaveSize++;
+    });
+    function queryMasterSlaveTableInfo($this) {
+        navTab.openTab("masterSlaveTableInfo", "genCode/queryMasterSlaveTable",{title:"主从表信息",data: $('#masterSlaveTableForm').serializeArray()});
+    }
+</script>

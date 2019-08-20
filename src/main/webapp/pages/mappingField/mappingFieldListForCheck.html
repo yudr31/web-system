@@ -1,0 +1,99 @@
+<form id="pagerForm" method="post" action="mappingField/mappingFieldListForCheck?lookUpType=${lookUpType}">
+    <input type="hidden" name="pageNum" value="${page.pageNum}" />
+    <input type="hidden" name="numPerPage" value="${page.pageSize}" />
+</form>
+<div class="pageHeader" look-up="lookUp" look-up-type="${lookUpType}">
+   <form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="mappingField/mappingFieldListForCheck?lookUpType=${lookUpType}"
+   onsubmit="return dialogSearch(this);" >
+	   <div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>所属项目：</label>
+					<input type="text" name="belongProject" class=" unSubmitBlank" value="${param.belongProject!}"/>
+				</li>
+				<li>
+					<label>表列类型：</label>
+					<input type="text" name="columnType" class=" unSubmitBlank" value="${param.columnType!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>属性类型：</label>
+					<input type="text" name="fieldType" class=" unSubmitBlank" value="${param.fieldType!}"/>
+				</li>
+				<li>
+					<label>判断条件：</label>
+					<input type="text" name="mappingCondition" class=" unSubmitBlank" value="${param.mappingCondition!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>状态：</label>
+					<input type="text" name="recordStatus" class="digits unSubmitBlank" value="${param.recordStatus!}"/>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="button" multLookupList="gid" warn="请选择信息" multlookupcallback="callBackMappingField">选择带回</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent" look-up="lookUp" look-up-type="${lookUpType}">
+	<table class="table" layoutH="118" targetType="dialog" width="100%">
+		<thead>
+			<tr>
+				<th up-type="one" class="lookUpCs">操作</th>
+				<th class="table-data-rowNum">序号</th>
+				<th>全局ID</th>
+				<th>所属项目</th>
+				<th>表列类型</th>
+				<th>属性类型</th>
+				<th>判断条件</th>
+				<th>状态</th>
+				<th>更新时间</th>
+				<th>创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+		<#list page.list as item>
+			<#assign itemId = "${item.gid!?replace(',','')}">
+			<tr rel="${itemId}" target="itemId">
+				<td up-type="one" class="lookUpCs">
+					<a class="btnSelect" href="javascript:$.bringBack({
+						gid:'${item.gid}',
+						belongProject:'${item.belongProject}',
+						columnType:'${item.columnType}',
+						fieldType:'${item.fieldType}',
+						mappingCondition:'${item.mappingCondition}',
+						status:'${item.recordStatus}',
+					});" title="查找带回">选择</a>
+				</td>
+				<td>${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+				<td>${item.gid}</td>
+				<td>${item.belongProject}</td>
+				<td>${item.columnType}</td>
+				<td>${item.fieldType}</td>
+				<td>${item.mappingCondition}</td>
+				<td>${item.recordStatus}</td>
+				<td>${item.updateTime}</td>
+				<td>${item.createTime}</td>
+			</tr>
+		</#list>
+		</tbody>
+	</table>
+		<script>
+			function changeSelect(obj) {
+				$("input[name='gid']",$.pdialog.getCurrent()).prop("checked",obj.checked);
+			}
+		</script>
+		<#include "./../../template/paginationForDialog.html"/>
+</div>

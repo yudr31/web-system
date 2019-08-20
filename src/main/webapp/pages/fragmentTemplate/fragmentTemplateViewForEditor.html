@@ -1,0 +1,27 @@
+<form id="viewerForm"
+      class="pageForm required-validate viewerForm"
+      method="post"
+      action="fragmentTemplate/fragmentTemplateEditor.do"
+      viewer-mode="${_pageViewerMode}"
+      onsubmit="return validateCallback(this, navTabAjaxDone);">
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="50">
+            <input type="hidden" name="callbackType" value="forward" />
+            <input type="hidden" name="forwardUrl" value="fragmentTemplate/fragmentTemplateViewer?id=${data.id!}"/>
+            <#include "fragmentTemplateViewData.html" />
+        </div>
+    </div>
+
+    <div class="formBar">
+        <ul>
+            <li><a>
+                <div class="buttonActive"><div class="buttonContent"><button type="submit">提 交</button></div></div>
+            </a></li>
+        </ul>
+        <ul>
+            <li><a href="fragmentTemplate/fragmentTemplateViewer?id=${data.id}" type="button" target="navTab" rel="tabFragmentTemplate_${data.id}" title="ID：${data.id}">
+                <div class="buttonActive"><div class="buttonContent"><button type="button">返 回</button></div></div>
+            </a></li>
+        </ul>
+    </div>
+</form>

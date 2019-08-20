@@ -1,0 +1,53 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>用户和角色的对应信息表：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+	<label>全局ID</label>
+	<input name="gid" type="text" class="" value="${data.gid!?replace(',','')}" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+	<label>所属的App类型</label>
+	<select class="combox" name="appType">
+		${dictDataUtil('getOptions','AppType',data.appType)}
+	</select>
+</div>
+<div class="unit">
+	<label>用户ID</label>
+	<input name="userId" type="text" lookupback="adminInfo.gid" value="${data.userId!}" class="readonly" size="40"/>
+	<a class="btnLook" href="adminInfo/adminInfoListForCheck?lookUpType=oneUp" lookupgroup="adminInfo">选择用户</a>
+</div>
+<div class="unit">
+	<label>用户名</label>
+	<input name="userName" type="text" lookupback="adminInfo.userName" value="${data.userName!}" class="readonly" size="40"/>
+</div>
+<div class="unit">
+	<label>角色ID</label>
+	<input name="roleId" type="text" lookupback="permissionRole.gid" value="${data.roleId!}" class="readonly" size="40"/>
+	<a class="btnLook" href="permissionRole/permissionRoleListForCheck?lookUpType=oneUp" lookupgroup="permissionRole">选择角色</a>
+</div>
+<div class="unit">
+	<label>角色名称</label>
+	<input name="roleName" type="text" lookupback="permissionRole.roleName" value="${data.roleName!}" class="readonly" size="40"/>
+</div>
+<div class="unit">
+	<label>是否禁止该连接</label>
+	<input name="isDisabled" type="text" class="digits" value="${data.isDisabled!}" size="40"/>
+</div>
+<div class="unit">
+	<label>状态</label>
+	<select class="combox" name="recordStatus">
+		${dictDataUtil('getOptions','RecordStatusType',data.recordStatus)}
+	</select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>创建时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>更新时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+</#if>

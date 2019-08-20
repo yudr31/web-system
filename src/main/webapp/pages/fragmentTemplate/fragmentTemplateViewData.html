@@ -1,0 +1,44 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>字典分类信息：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>全局ID：</label>
+    <input name="id" type="text" value="${data.gid!?replace(',','')}" class="digits" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+    <label>碎片模板名称：</label>
+    <input name="modelName" type="text" value="${data.modelName!}" class="required editable" size="40"/>
+</div>
+<div class="unit">
+    <label>碎片模板类型：</label>
+    <select class="combox" name="modelType">
+        ${dictDataUtil('getOptions','modelType',data.modelType)}
+    </select>
+</div>
+<div class="unit">
+    <label>碎片模板描述：</label>
+    <input name="modelDesc" type="text" value="${data.modelDesc!}" class="editable" size="40"/>
+</div>
+<div class="unit">
+    <label>模板文件内容：</label>
+    <textarea name="modelContent" type="text" rows="20" cols="120">${data.modelContent!}</textarea>
+</div>
+<div class="unit">
+    <label>状态：</label>
+    <select class="combox" name="recordStatus">
+        ${dictDataUtil('getOptions','RecordStatusType',data.recordStatus)}
+    </select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+    <div class="unit">
+        <label>创建时间：</label>
+        <input name="createTime" type="hidden" value="${(data.createTime)!}" class="editable" size="40"/>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date readonly" size="40" readonly="true"/>
+    </div>
+    <div class="unit">
+        <label>更新时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+</#if>

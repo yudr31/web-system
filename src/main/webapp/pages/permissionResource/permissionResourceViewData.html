@@ -1,0 +1,71 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>角色和资源的对应信息表：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+	<label>全局ID</label>
+	<input name="gid" type="text" class="" value="${data.gid!?replace(',','')}" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+	<label>所属的App类型</label>
+	<select class="combox" name="appType">
+		${dictDataUtil('getOptions','AppType',data.appType)}
+	</select>
+</div>
+<div class="unit">
+	<label>拥有者的主体类型</label>
+	<select class="combox" name="subjectType">
+		${dictDataUtil('getOptions','SubjectType',data.subjectType)}
+	</select>
+</div>
+<div class="unit">
+	<label>主体ID</label>
+	<input name="subjectId" type="text" lookupback="permissionRole.gid" value="${data.subjectId!}" class="" size="40"/>
+	<a class="btnLook" href="permissionRole/permissionRoleListForCheck?lookUpType=oneUp" lookupgroup="permissionRole">选择角色</a>
+</div>
+<div class="unit">
+	<label>主体名称</label>
+	<input name="subjectName" type="text" lookupback="permissionRole.roleName" value="${data.subjectName!}" class="" size="40"/>
+</div>
+<div class="unit">
+	<label>菜单ID</label>
+	<input name="menuId" type="text" lookupback="permissionMenu.gid" value="${data.menuId!}" class="readonly" size="40"/>
+	<a class="btnLook" href="permissionMenu/permissionMenuListForCheck?lookUpType=oneUp" lookupgroup="permissionMenu">选择菜单</a>
+</div>
+<div class="unit">
+	<label>菜单名称</label>
+	<input name="menuName" type="text" lookupback="permissionMenu.menuName" value="${data.menuName!}" class="readonly" size="40"/>
+</div>
+<div class="unit">
+	<label>菜单权限</label>
+	<input name="permission" type="text" class="digits" value="${data.permission!}" size="40"/>
+</div>
+<div class="unit">
+	<label>是否黑名单</label>
+	<select class="combox" name="isForbidden">
+		${dictDataUtil('getOptions','Boolean',data.isForbidden)}
+	</select>
+</div>
+<div class="unit">
+	<label>是否禁止该连接</label>
+	<select class="combox" name="isDisabled">
+		${dictDataUtil('getOptions','Boolean',data.isDisabled)}
+	</select>
+</div>
+<div class="unit">
+	<label>状态</label>
+	<select class="combox" name="recordStatus">
+		${dictDataUtil('getOptions','RecordStatusType',data.recordStatus)}
+	</select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>创建时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>更新时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+</#if>

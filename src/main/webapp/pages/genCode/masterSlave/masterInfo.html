@@ -1,0 +1,44 @@
+<div class="panel">
+    <div class="panelHeader">
+        <div class="panelHeaderContent">
+            <h1 style="cursor: move;">
+                ${masterSlave.master.tableName} 主表表信息
+            </h1>
+        </div>
+    </div>
+    <div class="panelContent">
+        <input type="hidden" name="belongProject" value="${tableInfo.belongProject!}">
+        <input type="hidden" name="master.moduleType" value="2">
+        <input type="hidden" name="master.tableName" value="${masterSlave.master.tableName!}">
+        <input type="hidden" name="master.priKey" value="${masterSlave.master.priKey!}">
+        <input type="hidden" name="master.entityName" value="${masterSlave.master.moduleName!}${masterSlave.master.infoName!?cap_first!}">
+        <p style="float: left; padding-right: 30px">
+            <label>sql文件名：</label>
+            <input type="text" name="master.sqlFile" class="required unSubmitBlank" value="${masterSlave.master.moduleName!}"/>
+        </p>
+        <p style="float: left; padding-right: 30px">
+            <label>ptoto协议文件名：</label>
+            <input type="text" name="master.protoFile" class="required unSubmitBlank" value="${masterSlave.master.moduleName!}"/>
+        </p>
+        <p style="float: left; padding-right: 30px">
+            <label>模块包名：</label>
+            <input type="text" name="master.modulePkg" class="required unSubmitBlank" value="${masterSlave.master.moduleName!}"/>
+        </p>
+        <p style="float: left; padding-right: 30px">
+            <label>协议实体名：</label>
+            <input type="text" name="master.protoEntity" class="required unSubmitBlank" value="${masterSlave.master.moduleName!?cap_first}${masterSlave.master.infoName!?cap_first}"/>
+        </p>
+        <p style="float: left; padding-right: 30px">
+            <label>表信息名：</label>
+            <input type="text" name="master.infoName" class="required unSubmitBlank" value="${masterSlave.master.infoName!}"/>
+        </p>
+        <p style="float: left; padding-right: 30px">
+            <label>表注释：</label>
+            <input type="text" name="master.tableComment" class="required unSubmitBlank" value="${masterSlave.master.tableComment!}"/>
+        </p>
+        <table class="table" style="width: 100%" selectRel="gids">
+            <#include "masterListTable.html"/>
+        </table>
+    </div>
+    <div class="panelFooter"><div class="panelFooterContent"></div></div>
+</div>

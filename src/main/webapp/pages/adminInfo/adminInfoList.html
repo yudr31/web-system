@@ -1,0 +1,47 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<form id="pagerForm" class="search-pager-form" method="post" action="adminInfo/adminInfoList">
+    <#include "./../../template/search-page-form.html"/>
+</form>
+
+<form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="adminInfo/adminInfoList"
+      onsubmit="return ($(this).valid() && navTabSearch(this))">
+    <div class="pageHeader">
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label>用户名：</label>
+                    <input type="text" name="userName" class="unSubmitBlank" value="${param.userName!}"/>
+                </li>
+                <li>
+                    <label>登录标识：</label>
+                    <input type="text" name="loginFlag" class="digits unSubmitBlank" value="${param.loginFlag!}"/>
+                </li>
+                <li>
+                    <label>登录次数：</label>
+                    <input type="text" name="loginCount" class="digits unSubmitBlank" value="${param.loginCount!}"/>
+                </li>
+                <li>
+                    <label>状态：</label>
+                    <select class="combox" name="recordStatus" class="digits unSubmitBlank">
+                        ${dictDataUtil('getOptionsWithNull','RecordStatusType',param.recordStatus)}
+                    </select>
+                </li>
+            </ul>
+            <#include "./../../template/search-bar-action.html"/>
+        </div>
+    </div>
+</form>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="adminInfo/adminInfoCreator" target="navTab" title="创建系统管理用户信息" rel="tabadminInfoCreator"><span>添加</span></a></li>
+            <li><a class="delete" href="adminInfo/adminInfoDeleter.do" target="selectedTodo" title="确定要删除吗？" warn="请选择一条系统管理用户信息" rel="gids"><span>删除</span></a></li>
+            <li><a class="edit" href="adminInfo/adminInfoEditor?gid={itemId}" target="navTab" warn="请选择一条系统管理用户信息" rel="gids"><span>编辑</span></a></li>
+        </ul>
+    </div>
+    <#include "./../../template/pagination.html"/>
+    <table class="table" style="width: 100%" selectRel="gids" layoutH="172">
+        <#include "adminInfoListTable.html"/>
+    </table>
+</div>

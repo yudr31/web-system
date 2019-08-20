@@ -1,0 +1,29 @@
+<div class="pageContent">
+    <form method="post" action="newLogin.do?callbackType=closeCurrent" class="pageForm" onsubmit="return validateCallback(this, dialogAjaxDone)">
+        <div class="pageFormContent" layoutH="58">
+            <p>
+                <label>用户名：</label>
+                <input type="text" name="username" size="20" class="login_input" />
+            </p>
+            <p>
+                <label>密码：</label>
+                <input type="password" name="password" size="20" class="login_input" />
+            </p>
+            <input type="hidden" name="sourceIP" value="">
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">Login</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">Close</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+
+</div>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script>
+    // function initSourceIP() {
+    //     $("input[name='sourceIP']").val(returnCitySN["cip"]+','+returnCitySN["cname"]);
+    // }
+    // initSourceIP();
+</script>

@@ -1,0 +1,35 @@
+<form id="tableForm" class="generate-table-form" method="post"
+      action="genCode/generateMasterSlaveTable" onsubmit="return validateCallback(this, navTabAjaxDone);">
+    <div class="pageContent" layoutH="50">
+        <div class="panel">
+            <div class="panelHeader">
+                <div class="panelHeaderContent">
+                    <h1 style="cursor: move;">
+                        选择预览文件
+                    </h1>
+                </div>
+            </div>
+            <div class="panelContent">
+                <#list masterSlave.master.modelList as item>
+                    <input name="master.preview" type="radio" value="${item.id}" <#if item_index == 0>checked</#if>>${item.modelName}
+                </#list>
+                <p><a class="button" style="float: right"><span onclick="preview(this)">预览</span></a></p>
+            </div>
+            <div class="panelFooter"><div class="panelFooterContent"></div></div>
+        </div>
+        <#include "masterInfo.html"/>
+        <#include "slaveInfo.html"/>
+    </div>
+    <div class="formBar" layoutH="10">
+        <ul>
+            <li><a>
+                <div class="buttonActive"><div class="buttonContent"><button type="submit">创 建</button></div></div>
+            </a></li>
+        </ul>
+    </div>
+</form>
+<script>
+    function preview($this) {
+        navTab.openTab("test", "genCode/previewMasterSlaveTable",{title:"预览",data: $('#tableForm').serializeArray()});
+    }
+</script>

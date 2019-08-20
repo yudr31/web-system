@@ -1,0 +1,31 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<thead>
+    <tr>
+        <th class="table-data-rowNum"><input type="checkbox" group="gids" class="checkboxCtrl">序号</th>
+        <th class="table-data-id">全局ID</th>
+        <th>碎片名称</th>
+        <th>碎片模板类型</th>
+        <th>碎片模板描述</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+</thead>
+<tbody>
+<#list page.list as item>
+    <#assign itemId = "${item.gid!?replace(',','')}">
+    <tr rel="${item.gid}" target="itemId">
+        <td><input name="gids" value="${itemId}" type="checkbox">${item_index+1}</td>
+        <td>${item.gid?replace(',','')}</td>
+        <td>${item.modelName!}</td>
+        <td>${dictDataUtil('getDictLabelByValue','ModelType',item.modelType)}</td>
+        <td>${item.modelDesc!}</td>
+        <td>${dictDataUtil('getDictLabelByValue','RecordStatusType',item.recordStatus)}</td>
+        <td>
+            <a href="fragmentTemplate/fragmentTemplateViewer?gid=${item.gid?replace(',','')}" target="navTab" rel="tabFragmentTemplate_${item.gid?replace(',','')}"
+                title="ID：${item.gid?replace(',','')}" class=""> 【查看】 </a>
+            <a href="fragmentTemplate/fragmentTemplateEditor?gid=${item.gid?replace(',','')}" target="navTab" rel="tabFragmentTemplate_${item.gid?replace(',','')}"
+                title="ID：${item.gid?replace(',','')}" class=""> 【编辑】 </a>
+        </td>
+    </tr>
+</#list>
+</tbody>

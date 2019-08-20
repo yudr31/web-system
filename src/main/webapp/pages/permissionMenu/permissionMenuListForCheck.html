@@ -1,0 +1,116 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<form id="pagerForm" method="post" action="permissionMenu/permissionMenuListForCheck?lookUpType=${lookUpType}">
+    <input type="hidden" name="pageNum" value="${page.pageNum}" />
+    <input type="hidden" name="numPerPage" value="${page.pageSize}" />
+</form>
+<div class="pageHeader" look-up="lookUp" look-up-type="${lookUpType}">
+    <form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="permissionMenu/permissionMenuListForCheck?lookUpType=${lookUpType}"
+          onsubmit="return dialogSearch(this);" >
+        <div class="searchBar">
+            <ul class="searchContent">
+                <li>
+                    <label>全局ID：</label>
+                    <input type="text" name="gid" class=" unSubmitBlank" value="${param.gid!}"/>
+                </li>
+                <li>
+                    <label>所属的App类型：</label>
+                    <select class="combox" name="appType">
+                        ${dictDataUtil('getOptionsWithNull','AppType',param.appType)}
+                    </select>
+                </li>
+            </ul>
+            <ul class="searchContent">
+                <li>
+                    <label>菜单类型：</label>
+                    <select class="combox" name="menuType">
+                        ${dictDataUtil('getOptionsWithNull','MenuType',param.menuType)}
+                    </select>
+                </li>
+                <li>
+                    <label>菜单名称：</label>
+                    <input type="text" name="menuName" class=" unSubmitBlank" value="${param.menuName!}"/>
+                </li>
+            </ul>
+            <ul class="searchContent">
+                <li>
+                    <label>菜单父ID：</label>
+                    <input type="text" name="parentId" class=" unSubmitBlank" value="${param.parentId!}"/>
+                </li>
+                <li>
+                    <label>菜单链接：</label>
+                    <input type="text" name="menuLink" class=" unSubmitBlank" value="${param.menuLink!}"/>
+                </li>
+            </ul>
+            <ul class="searchContent">
+                <li>
+                    <label>状态：</label>
+                    <input type="text" name="recordStatus" class="digits unSubmitBlank" value="${param.recordStatus!}"/>
+                </li>
+            </ul>
+            <div class="subBar">
+                <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+                    <li>
+                        <div class="button">
+                            <div class="buttonContent">
+                                <button type="button" multLookupList="gid" warn="请选择信息" multlookupcallback="callBackPermissionMenu">选择带回</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="pageContent" look-up="lookUp" look-up-type="${lookUpType}">
+    <table class="table" layoutH="118" targetType="dialog" width="100%">
+        <thead>
+        <tr>
+            <th up-type="one" class="lookUpCs">操作</th>
+            <th class="table-data-rowNum">序号</th>
+            <th>全局ID</th>
+            <th>所属的App类型</th>
+            <th>菜单类型</th>
+            <th>菜单名称</th>
+            <th>菜单描述</th>
+            <th>菜单父ID</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <#list page.list as item>
+        <#assign itemId = "${item.gid!?replace(',','')}">
+        <tr rel="${itemId}" target="itemId">
+            <td up-type="one" class="lookUpCs">
+                <a class="btnSelect" href="javascript:$.bringBack({
+						gid:'${itemId}',
+						appType:'${item.appType}',
+						menuType:'${item.menuType}',
+						menuName:'${item.menuName}',
+						menuDesc:'${item.menuDesc}',
+						parentId:'${item.parentId}',
+						menuLink:'${item.menuLink}',
+						sort:'${item.sort}',
+						status:'${item.recordStatus}',
+					});" title="查找带回">选择</a>
+            </td>
+            <td>${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+            <td>${itemId}</td>
+            <td>${dictDataUtil('getDictLabelByValue','AppType',item.appType)}</td>
+            <td>${dictDataUtil('getDictLabelByValue','MenuType',item.menuType)}</td>
+            <td>${item.menuName}</td>
+            <td>${item.menuDesc}</td>
+            <td>${item.parentId}</td>
+            <td>${dictDataUtil('getDictLabelByValue','RecordStatusType',item.recordStatus)}</td>
+        </tr>
+        </#list>
+        </tbody>
+    </table>
+    <script>
+        function changeSelect(obj) {
+            $("input[name='gid']",$.pdialog.getCurrent()).prop("checked",obj.checked);
+        }
+    </script>
+    <#include "./../../template/paginationForDialog.html"/>
+</div>

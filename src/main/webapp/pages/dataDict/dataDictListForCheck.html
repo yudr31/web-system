@@ -1,0 +1,76 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<form id="pagerForm" method="post" action="dataDict/dataDictListForCheck?lookUpType=${lookUpType}">
+    <input type="hidden" name="currentPage" value="${page.pageNum}" />
+    <input type="hidden" name="numPerPage" value="${page.pageSize}" />
+</form>
+
+<div class="pageHeader" look-up="lookUp" look-up-type="${lookUpType}">
+    <form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="dataDict/dictTypeListForCheck?lookUpType=${lookUpType}"
+          onsubmit="return dialogSearch(this);" >
+        <div class="pageHeader">
+            <div class="searchBar">
+                <ul class="searchContent">
+                    <li>
+                        <label>标签类型：</label>
+                        <select class="combox" name="dictType">
+                            ${dictDataUtil('getDictTypeOptionsWithNull','',param.dictType)}
+                        </select>
+                    </li>
+                    <li>
+                        <label>数据值：</label>
+                        <input type="text" name="dictValue" class="digits unSubmitBlank" value="${param.dictValue!}"/>
+                    </li>
+                </ul>
+                <ul  class="searchContent">
+                    <li>
+                        <label>标签名：</label>
+                        <input type="text" name="dictLabel" class="digits unSubmitBlank" value="${param.dictLabel!}"/>
+                    </li>
+                </ul>
+                <#include "./../../template/search-bar-action.html"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent" look-up="lookUp" look-up-type="${lookUpType}">
+    <table class="table" layoutH="118" targetType="dialog" width="100%">
+        <thead>
+        <tr>
+            <th up-type="${lookUpType}" class="lookUpCs">操作</th>
+            <th class="table-data-rowNum">序号</th>
+            <th class="table-data-id">全局ID</th>
+            <th>标签名</th>
+            <th>数据值</th>
+            <th>描述</th>
+            <th>父Id</th>
+            <th>类型</th>
+            <th>排序</th>
+            <th>记录状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <#list page.list as item>
+            <#assign itemId = "${item.gid!?replace(',','')}">
+            <tr rel="${itemId}" target="${itemId}">
+                <td up-type="${lookUpType}" class="lookUpCs">
+                    <a class="btnSelect" href="javascript:$.bringBack({gid:'${itemId}', label:'${item.dictLabel}',
+                                                                          value:'${item.dictValue}',type:'${item.dictType}'})" title="查找带回">选择</a>
+                </td>
+                <td>${item_index + 1}</td>
+                <td>${itemId}</td>
+                <td>${item.dictLabel!}</td>
+                <td>${item.dictValue!}</td>
+                <td>${item.description!}</td>
+                <td>${item.parent!}</td>
+                <td>${item.dictType!}</td>
+                <td>${item.sort!}</td>
+                <td>${item.recordStatus!}</td>
+            </tr>
+        </#list>
+        </tbody>
+    </table>
+
+    <#include "./../../template/paginationForDialog.html"/>
+
+</div>

@@ -1,0 +1,51 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader">
+    <h2>数据字典信息：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>全局ID：</label>
+    <input name="gid" type="text" value="${data.gid!?replace(',','')}" class="digits" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+    <label>标签名：</label>
+    <input name="dictLabel" type="text" value="${data.dictLabel!}" class="required editable" size="40"/>
+</div>
+<div class="unit">
+    <label>数据值：</label>
+    <input name="dictValue" type="text" value="${data.dictValue!}" class="required editable" size="40"/>
+</div>
+<div class="unit">
+    <label>描述：</label>
+    <input name="description" type="text" value="${data.description!}" class="editable" size="40"/>
+</div>
+<div class="unit">
+    <label>父Id：</label>
+    <input name="parent" type="text" lookupback="dataDict.gid" value="${data.parent!}" class="editable" size="40"/>
+    <a class="btnLook" href="dataDict/dataDictListForCheck?lookUpType=oneUp" lookupgroup="dataDict">选择数据字典</a>
+</div>
+<div class="unit">
+    <label>类型：</label>
+    <input name="dictType" type="text" lookupback="lookDictType.value" value="${data.dictType!}" class="required" size="40"/>
+    <a class="btnLook" href="dataDict/dictTypeListForCheck?lookUpType=oneUp" lookupgroup="lookDictType">选择字典类型</a>
+</div>
+<div class="unit">
+    <label>排序：</label>
+    <input name="sort" type="text" value="${data.sort!}" class="editable" size="40"/>
+</div>
+<div class="unit">
+    <label>记录状态：</label>
+    <select class="combox" name="recordStatus">
+        ${dictDataUtil('getOptions','RecordStatusType',data.recordStatus)}
+    </select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+    <div class="unit">
+        <label>创建时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date readonly" size="40" readonly="true"/>
+    </div>
+    <div class="unit">
+        <label>更新时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+</#if>

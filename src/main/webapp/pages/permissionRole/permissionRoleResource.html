@@ -1,0 +1,144 @@
+<div class="pageContent">
+    <form id="personForm" method="post" action="permissionRole/permissionRoleResourceEditor.do"
+          class='pageForm required-validate' onsubmit="return checkbox_process(this);">
+        <div class="pageFormContent" layoutH="56" >
+            <input type="hidden" name="callbackType" value="closeCurrent"/>
+            <input type="hidden" name="operIds" value="">
+            <input type="hidden" name="roleId" value="${data.gid?replace(',','')}">
+            <div class="unit">
+                <label>角色名称</label>
+                <input name="roleName" type="text" class="" value="${data.roleName?replace(',','')}" size="40"/>
+            </div>
+            <div class="unit">
+                <label>权限信息</label>
+                <div style="display:block; overflow:auto; width:300px; overflow:auto; border:solid 1px #CCC; background:#FFF;">
+                    <ul id="opersTree" class="tree treeFolder treeCheck expand">
+                    <#list resourceList as item>
+                        <li>
+                            <a href="#" tname="oper_box" tvalue="${item.gid?replace(',','')}" <#if item.checked>checked="true"</#if>>
+                            ${item.menuName}
+                            </a>
+                        <#if item.children?size gt 0>
+                            <ul>
+                            <#list item.children as item1>
+                                <li>
+                                    <a href="#" tname="oper_box" tvalue="${item1.gid?replace(',','')}" <#if item1.checked>checked="true"</#if>>
+                                    ${item1.menuName}
+                                    </a>
+                                <#if item1.children?size gt 0>
+                                    <ul>
+                                    <#list item1.children as item2>
+                                        <li>
+                                            <a href="#" tname="oper_box" tvalue="${item2.gid?replace(',','')}" <#if item2.checked>checked="true"</#if>>
+                                            ${item2.menuName}
+                                            </a>
+                                        <#if item2.children?size gt 0>
+                                            <ul>
+                                            <#list item2.children as item3>
+                                                <li>
+                                                    <a href="#" tname="oper_box" tvalue="${item3.gid?replace(',','')}" <#if item3.checked>checked="true"</#if>>
+                                                    ${item3.menuName}
+                                                    </a>
+                                                    <ul>
+                                                        <a href="#" tname="oper_box" tvalue="1" <#if item3.checked>checked="true"</#if>>
+                                                            查询
+                                                        </a>
+                                                        <a href="#" tname="oper_box" tvalue="2" <#if item3.checked>checked="true"</#if>>
+                                                            增加
+                                                        </a>
+                                                        <a href="#" tname="oper_box" tvalue="4" <#if item3.checked>checked="true"</#if>>
+                                                            修改
+                                                        </a>
+                                                        <a href="#" tname="oper_box" tvalue="8" <#if item3.checked>checked="true"</#if>>
+                                                            删除
+                                                        </a>
+                                                    </ul>
+                                                </li>
+                                            </#list>
+                                            </ul>
+                                        </#if>
+                                        </li>
+                                    </#list>
+                                    </ul>
+                                <#else>
+                                    <ul>
+                                        <li>
+                                            <a href="#" tname="oper_box" tvalue="1" <#if item1.checked>checked="true"</#if>>
+                                                查询
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" tname="oper_box" tvalue="2" <#if item1.checked>checked="true"</#if>>
+                                                增加
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" tname="oper_box" tvalue="4" <#if item1.checked>checked="true"</#if>>
+                                                修改
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" tname="oper_box" tvalue="8" <#if item1.checked>checked="true"</#if>>
+                                                删除
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </#if>
+                                </li>
+                            </#list>
+                            </ul>
+                        </#if>
+                        </li>
+                    </#list>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">提交</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">关闭</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function checkbox_process(form){
+        var operIds = "";
+        debugger;
+        $("#opersTree div.indeterminate").each(function(i,a){
+            debugger;
+            for (var i = 0; i < a.children.length; i++){
+                operIds += a.children[i].value + ",";
+            }
+        });
+        $("#opersTree div.checked").each(function(i,a){
+            debugger;
+            for (var i = 0; i < a.children.length; i++){
+                operIds += a.children[i].value + ",";
+            }
+        });
+        // $("#opersTree input:checked").each(function(i,a){
+        //     debugger;
+        //     operIds += a.value + ",";
+        // });
+        if(operIds != ""){
+            operIds = operIds.substr(0,operIds.length-1);
+        }
+        $("input[name = 'operIds']").val(operIds);
+        return validateCallback(form, dialogAjaxDone);
+    }
+</script>

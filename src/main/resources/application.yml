@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.95.128:3306/spring_boot?useUnicode=true&useSSL=false&characterEncoding=UTF8
+    username: root
+    password: 123456
+
+  redis:
+    host: 192.168.95.128
+    port: 6379

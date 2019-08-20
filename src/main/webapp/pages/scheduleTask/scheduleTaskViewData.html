@@ -1,0 +1,59 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>定时任务配置信息表：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+	<label>全局ID</label>
+	<input name="gid" type="text" class="" value="${data.gid!?replace(',','')}" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+	<label>任务名</label>
+	<input name="jobName" type="text" class="" value="${data.jobName!}" size="40"/>
+</div>
+<div class="unit">
+	<label>任务分组</label>
+	<input name="jobGroup" type="text" class="" value="${data.jobGroup!}" size="40"/>
+</div>
+<div class="unit">
+	<label>触发任务名</label>
+	<input name="triggerName" type="text" class="" value="${data.triggerName!}" size="40"/>
+</div>
+<div class="unit">
+	<label>触发任务分组</label>
+	<input name="triggerGroup" type="text" class="" value="${data.triggerGroup!}" size="40"/>
+</div>
+<div class="unit">
+	<label>定时任务配置</label>
+	<input name="cron" type="text" class="" value="${data.cron!}" size="40"/>
+</div>
+<div class="unit">
+	<label>定时任务类</label>
+	<input name="taskClass" type="text" class="" value="${data.taskClass!}" size="40"/>
+</div>
+<div class="unit">
+	<label>定时任务备注</label>
+	<input name="description" type="text" class="" value="${data.description!}" size="40"/>
+</div>
+<div class="unit">
+	<label>任务状态</label>
+	<select name="jobStatus" class="combox">
+		${dictDataUtil('getOptions','JobStatus',data.jobStatus!)}
+	</select>
+</div>
+<div class="unit">
+	<label>状态</label>
+	<select name="recordStatus" class="combox">
+		${dictDataUtil('getOptions','RecordStatusType',data.recordStatus!)}
+	</select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>创建时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>更新时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+</#if>

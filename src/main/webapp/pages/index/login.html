@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>代码生成系统</title>
+    <link rel="stylesheet" href="assets/css/login.css" type="text/css"/>
+    <link rel="shortcut icon" href="assets/image/favicon-nnk.png" type="image/x-icon"/>
+    <style>
+        label.error,span.error {color: red;}
+    </style>
+</head>
+<body class="login_bg">
+<div class="login_wrap">
+    <h1 class="logo_in">
+        <img width="502" src="assets/image/logo_in.png" alt="">
+    </h1>
+    <form method="post" id="loginForm" onsubmit="return validateCallback(this)">
+        <div class="login_box">
+            <div class="uin_area">
+                <label>
+                    <em class="ico_uin"></em>
+                    <input class="ipt required" type="text" name="username" placeholder="请输入用户名或手机号" value="admin" />
+                </label>
+            </div>
+            <div class="pwd_area">
+                <label>
+                    <em class="ico_pwd"></em>
+                    <input class="ipt required" type="password" name="password" placeholder="请输入登录密码" value="" />
+                </label>
+            </div>
+            <input type="hidden" name="sourceIP" value="">
+            <div class="tips_area cl">
+            <span class="err" id="errorMsg" hidden="hidden">
+                <em class="ico_err"></em>密码错误
+            </span>
+                <label class="auto_login" hidden="hidden"><input type="checkbox">记住我的登录信息</label>
+            </div>
+            <input type="submit" class="btn_submit" value="登录" id="btnSubmit" />
+        </div>
+    </form>
+    <div class="foot">
+        2016 © 深圳市年年卡网络科技有限公司
+    </div>
+</div>
+<script src="assets/dwz/js/jquery-2.1.4.js" type="text/javascript"></script>
+<script src="assets/dwz/js/jquery.validate.js" type="text/javascript"></script>
+<script src="assets/dwz/js/dwz.validate.method.js" type="text/javascript"></script>
+<!--<script src="assets/js/login.js" type="text/javascript"></script>-->
+</body>
+</html>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script>
+    $.extend($.validator.messages, {
+        required: "必填字段",
+        phone: "请输入正确的手机号"//"数字、空格、括号"
+    });
+
+    var errorMsg = $("#errorMsg");
+    errorMsg.hide();
+
+    function showErrorMsg(msg) {
+        errorMsg.html(msg);
+        errorMsg.show();
+    }
+
+    function hideErrorMsg() {
+        errorMsg.hide();
+    }
+
+    function validateCallback(form) {
+        var $form = $(form);
+        hideErrorMsg();
+        if (!$form.valid()) return false;
+        var $btnSubmit = $("#btnSubmit");
+        $btnSubmit.prop("disabled",true);
+        var _submitFn = function(){
+            $.ajax({
+                type: form.method || 'POST',
+                url:'newLogin.do',
+                data:$form.serializeArray(),
+                dataType:"json",
+                cache: false,
+                success: function (json) {
+                    if (json.statusCode == 200){
+                        location.href = ".";
+                    } else {
+                        $btnSubmit.prop("disabled",false);
+                        showErrorMsg(json.message);
+                    }
+                },
+                error: function () {
+                    $btnSubmit.prop("disabled",false);
+                    showErrorMsg("登录出错，请重新登录");
+                }
+            });
+        }
+        _submitFn();
+        return false;
+    }
+    // function initSourceIP() {
+    //     $("input[name='sourceIP']").val(returnCitySN["cip"]+','+returnCitySN["cname"]);
+    // }
+    // initSourceIP();
+</script>

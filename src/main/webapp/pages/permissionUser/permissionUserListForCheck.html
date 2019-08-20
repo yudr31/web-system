@@ -1,0 +1,111 @@
+<form id="pagerForm" method="post" action="permissionUser/permissionUserListForCheck?lookUpType=${lookUpType}">
+    <input type="hidden" name="pageNum" value="${page.pageNum}" />
+    <input type="hidden" name="numPerPage" value="${page.pageSize}" />
+</form>
+<div class="pageHeader" look-up="lookUp" look-up-type="${lookUpType}">
+   <form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="permissionUser/permissionUserListForCheck?lookUpType=${lookUpType}"
+   onsubmit="return dialogSearch(this);" >
+	   <div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>全局ID：</label>
+					<input type="text" name="gid" class=" unSubmitBlank" value="${param.gid!}"/>
+				</li>
+				<li>
+					<label>角色所属的App类型：</label>
+					<input type="text" name="appType" class=" unSubmitBlank" value="${param.appType!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>用户名：</label>
+					<input type="text" name="userName" class=" unSubmitBlank" value="${param.userName!}"/>
+				</li>
+				<li>
+					<label>角色名称：</label>
+					<input type="text" name="roleName" class=" unSubmitBlank" value="${param.roleName!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>是否禁止该连接：</label>
+					<input type="text" name="isDisabled" class="digits unSubmitBlank" value="${param.isDisabled!}"/>
+				</li>
+				<li>
+					<label>状态：</label>
+					<select class="combox" name="recordStatus">
+						${dictDataUtil('getOptionsWithNull','RecordStatusType',param.recordStatus)}
+					</select>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="button" multLookupList="gid" warn="请选择信息" multlookupcallback="callBackPermissionUser">选择带回</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent" look-up="lookUp" look-up-type="${lookUpType}">
+	<table class="table" layoutH="118" targetType="dialog" width="100%">
+		<thead>
+			<tr>
+				<th up-type="one" class="lookUpCs">操作</th>
+				<th class="table-data-rowNum">序号</th>
+				<th>全局ID</th>
+				<th>角色所属的App类型</th>
+				<th>用户ID</th>
+				<th>用户名</th>
+				<th>角色ID</th>
+				<th>角色名称</th>
+				<th>是否禁止该连接</th>
+				<th>状态</th>
+				<th>更新时间</th>
+				<th>创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+		<#list page.list as item>
+			<#assign itemId = "${item.gid!?replace(',','')}">
+			<tr rel="${itemId}" target="itemId">
+				<td up-type="one" class="lookUpCs">
+					<a class="btnSelect" href="javascript:$.bringBack({
+						gid:'${item.gid}',
+						appType:'${item.appType}',
+						userId:'${item.userId}',
+						userName:'${item.userName}',
+						roleId:'${item.roleId}',
+						roleName:'${item.roleName}',
+						isDisabled:'${item.isDisabled}',
+						status:'${item.recordStatus}',
+					});" title="查找带回">选择</a>
+				</td>
+				<td>${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+				<td>${item.gid}</td>
+				<td>${item.appType}</td>
+				<td>${item.userId}</td>
+				<td>${item.userName}</td>
+				<td>${item.roleId}</td>
+				<td>${item.roleName}</td>
+				<td>${item.isDisabled}</td>
+				<td>${item.recordStatus}</td>
+				<td>${item.updateTime}</td>
+				<td>${item.createTime}</td>
+			</tr>
+		</#list>
+		</tbody>
+	</table>
+		<script>
+			function changeSelect(obj) {
+				$("input[name='gid']",$.pdialog.getCurrent()).prop("checked",obj.checked);
+			}
+		</script>
+		<#include "./../../template/paginationForDialog.html"/>
+</div>

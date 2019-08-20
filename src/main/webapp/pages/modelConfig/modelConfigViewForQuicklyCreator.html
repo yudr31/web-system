@@ -1,0 +1,69 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<form id="inputForm" class="search-input-form" method="post" action="modelConfig/modelConfigQuicklyCreator.do"
+      onsubmit="return ($(this).valid() && navTabSearch(this))" >
+    <div class="pageContent">
+        <div class="pageFormContent" layouth="50" style="height: 446px; overflow: auto;">
+            <div class="pageHeader">
+                    <div class="searchBar">
+                        <ul class="searchContent">
+                            <li>
+                                <label>所属项目：</label>
+                                <select class="combox" name="modelConfig.belongProject">
+                                    ${dictDataUtil('getOptions', 'projectType', param.projectType)}
+                                </select>
+                            </li>
+                            <li>
+                                <label>模板类型：</label>
+                                <select class="combox" name="modelConfig.modelType">
+                                    ${dictDataUtil('getOptions', 'modelType', param.modelType)}
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+
+            </div>
+            <div class="pageContent" >
+                <table class="list nowrap itemDetailRewrite" layoutH="118" width="100%" style="clear: both;">
+                    <thead>
+                        <tr>
+                            <th>操作</th>
+                            <th>序号</th>
+                            <th>模板配置名称</th>
+                            <th>文件名称</th>
+                            <th>保存路径</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <#list resultList as item>
+                            <#assign itemId = "${item.gid!?replace(',','')}">
+                            <tr class="unitBox">
+                                <td>
+                                    <a href="javascript:void(0)" class="btnDel">删除</a>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="modelConfigList[${item_index}].gid" value="${item.gid}" class="required textInput" maxlength="120">
+                                    ${item_index + 1}
+                                </td>
+                                <td>
+                                    <input type="text" name="modelConfigList[${item_index}].modelName" value="${item.modelName}" class="required textInput" maxlength="120">
+                                </td>
+                                <td>
+                                    <input type="text" name="modelConfigList[${item_index}].fileName" value="${item.fileName}" class="required textInput" maxlength="255">
+                                </td>
+                                <td>
+                                    <input type="text" name="modelConfigList[${item_index}].savePath" value="${item.savePath}" class="required textInput" maxlength="255">
+                                </td>
+                            </tr>
+                        </#list>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="formBar">
+        <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+            <li><div class="button"><div class="buttonContent"><button class="close" type="button">关闭</button></div></div></li>
+        </ul>
+    </div>
+</form>

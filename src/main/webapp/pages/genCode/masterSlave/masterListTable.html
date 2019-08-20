@@ -1,0 +1,45 @@
+<thead>
+    <tr>
+        <th class="table-data-rowNum">序号</th>
+        <th>字段名</th>
+        <th>字段注释</th>
+        <th><input type="checkbox" onchange="chengeSearch(this)" checked>搜索项</th>
+        <th><input type="checkbox" onchange="chengeShow(this)" checked/>展示项</th>
+        <th>标签类型</th>
+        <th>枚举类名</th>
+    </tr>
+</thead>
+<tbody>
+<#list masterSlave.master.columns as item>
+    <tr>
+        <input name="master.columns[${item_index}].fieldName" type="hidden" value="${item.fieldName!}">
+        <input name="master.columns[${item_index}].columnType" type="hidden" value="${item.columnType!}">
+        <input name="master.columns[${item_index}].filedType" type="hidden" value="${item.filedType!}">
+        <input name="master.columns[${item_index}].protoType" type="hidden" value="${item.protoType!}">
+        <input name="master.columns[${item_index}].protoComment" type="hidden" value="${item.protoComment!}">
+        <td>${item_index+1}</td>
+        <td><input name="master.columns[${item_index}].columnName" type="text" value="${item.columnName!}" class="required"></td>
+        <td><input name="master.columns[${item_index}].columnComment" type="text" value="${item.columnComment!}" class="required"></td>
+        <td>
+            <input name="master.columns[${item_index}].searchColumn" type="checkbox" value="true" checked>搜索
+        </td>
+        <td>
+            <input name="master.columns[${item_index}].showColumn" type="checkbox" value="true" checked>展示
+        </td>
+        <td>
+            <input name="master.columns[${item_index}].tag" type="radio" value="input" checked>一般
+            <input name="master.columns[${item_index}].tag" type="radio" value="select" <#if item.enumBool>checked</#if>>枚举
+            <input name="master.columns[${item_index}].tag" type="radio" value="amount" <#if item.amountBool>checked</#if>>金额
+        </td>
+        <td><input name="master.columns[${item_index}].enumType" type="text" value="${item.enumType!}"></td>
+    </tr>
+</#list>
+</tbody>
+<script>
+    function chengeSearch(obj) {
+        $("input[name$='searchColumn']",$(obj).parents(".grid")).prop("checked",obj.checked);
+    }
+    function chengeShow(obj) {
+        $("input[name$='showColumn']",$(obj).parents(".grid")).prop("checked",obj.checked);
+    }
+</script>

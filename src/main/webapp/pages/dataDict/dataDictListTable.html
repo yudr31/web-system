@@ -1,0 +1,37 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<thead>
+    <tr>
+        <th class="table-data-rowNum"><input type="checkbox" group="gids" class="checkboxCtrl">序号</th>
+        <th class="table-data-id">全局ID</th>
+        <th>类型</th>
+        <th>标签名</th>
+        <th>数据值</th>
+        <th>描述</th>
+        <th>父Id</th>
+        <th>排序</th>
+        <th>记录状态</th>
+        <th>操作</th>
+    </tr>
+</thead>
+<tbody>
+<#list page.list as item>
+    <#assign itemId = "${item.gid!?replace(',','')}">
+    <tr rel="${itemId}" target="itemId">
+        <td><input name="gids" value="${itemId}" type="checkbox">${item_index+1}</td>
+        <td>${item.gid}</td>
+        <td>${item.dictType!}</td>
+        <td>${item.dictLabel!}</td>
+        <td>${item.dictValue!}</td>
+        <td>${item.description!}</td>
+        <td>${item.parent!}</td>
+        <td>${item.sort!}</td>
+        <td>${dictDataUtil('getDictLabelByValue','RecordStatusType',item.recordStatus)}</td>
+        <td>
+            <a href="dataDict/dataDictViewer?gid=${itemId}" target="navTab" rel="tabDataDict_${itemId}"
+               title="等级ID：${itemId}" class=""> 【查看】 </a>
+            <a href="dataDict/dataDictEditor?gid=${itemId}" target="navTab" rel="tabDataDict_${itemId}"
+               title="等级ID：${itemId}" class=""> 【编辑】 </a>
+        </td>
+    </tr>
+</#list>
+</tbody>

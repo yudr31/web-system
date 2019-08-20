@@ -1,0 +1,35 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>系统管理用户信息表：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>用户ID</label>
+    <input name="gid" type="text" class="" value="${data.gid!}" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+    <label>用户名</label>
+    <input name="userName" type="text" class="" value="${data.userName!}" size="40"/>
+</div>
+<div class="unit">
+    <label>登录密码</label>
+    <input name="password" type="password" class="" value="${data.password!}" size="40"/>
+</div>
+<div class="unit">
+    <label>确认密码</label>
+    <input name="pwd" type="password" class="" value="${data.password!}" size="40"/>
+</div>
+<div class="unit">
+    <label>状态</label>
+    <input name="recordStatus" type="text" class="digits" value="${data.recordStatus!}" size="40"/>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>创建时间</label>
+    <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>更新时间</label>
+    <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+</div>
+</#if>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.boot.web.mapper.DataDictMapper">
+
+	<sql id="Base_Column_List" >
+        gid as "gid",
+        dict_label as "dictLabel",
+        dict_value as "dictValue",
+        dict_type as "dictType",
+        parent as "parent",
+        sort as "sort",
+        description as "description",
+        record_status as "recordStatus",
+        update_user as "updateUser",
+        create_user as "createUser",
+        update_time as "updateTime",
+        create_time as "createTime"
+    </sql>
+
+	<select id="fetchDataDictListGroupDictType" resultType="com.spring.boot.feign.pojo.web.DataDict">
+		SELECT
+			label AS "dictLabel", value AS "dictValue"
+		FROM dict_type
+	</select>
+
+	<select id="fetchRecordList" resultType="com.spring.boot.feign.pojo.web.DataDict">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM data_dict s0
+		<include refid="findDataDictWhere"/>
+		ORDER BY sort ASC
+	</select>
+
+	<sql id="findDataDictWhere">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<include refid="dataDictSql" />
+		</trim>
+	</sql>
+
+	<sql id="dataDictSql">
+		<if test="gid != null">
+			AND s0.gid = #{gid,jdbcType=BIGINT}
+		</if>
+		<if test="dictLabel != null and dictLabel != ''">
+			AND s0.dict_label LIKE CONCAT('%',#{dictLabel,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="dictValue != null and dictValue != ''">
+			AND s0.dict_value LIKE CONCAT('%',#{dictValue,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="dictType != null and dictType != ''">
+			AND s0.dict_type = #{dictType,jdbcType=VARCHAR}
+		</if>
+		<if test="parent != null">
+			AND s0.parent = #{parent,jdbcType=BIGINT}
+		</if>
+		<if test="sort != null">
+			AND s0.sort = #{sort,jdbcType=INTEGER}
+		</if>
+		<if test="description != null and description != ''">
+			AND s0.description LIKE CONCAT('%',#{description,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="recordStatus != null">
+			AND s0.record_status = #{recordStatus,jdbcType=INTEGER}
+		</if>
+	</sql>
+
+</mapper>

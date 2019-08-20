@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.boot.web.mapper.MappingFieldMapper" >
+    <sql id="Base_Column_List" >
+        gid as "gid",
+        belong_project as "belongProject",
+        column_type as "columnType",
+        field_type as "fieldType",
+        mapping_condition as "mappingCondition",
+        record_status as "recordStatus",
+        update_user as "updateUser",
+        create_user as "createUser",
+        update_time as "updateTime",
+        create_time as "createTime"
+    </sql>
+
+    <select id="fetchRecordList" resultType="com.spring.boot.feign.pojo.web.MappingField">
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM mapping_field s0
+        <include refid="findMappingFieldWhere"></include>
+        ORDER BY update_time DESC
+    </select>
+
+    <sql id="findMappingFieldWhere">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <include refid="mappingFieldSql" ></include>
+        </trim>
+    </sql>
+
+    <sql id="mappingFieldSql">
+        <if test="gid != null and gid != ''">
+            AND s0.gid LIKE CONCAT('%',#{gid,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="belongProject != null and belongProject != ''">
+            AND s0.belong_project LIKE CONCAT('%',#{belongProject,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="columnType != null and columnType != ''">
+            AND s0.column_type LIKE CONCAT('%',#{columnType,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="fieldType != null and fieldType != ''">
+            AND s0.field_type LIKE CONCAT('%',#{fieldType,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="mappingCondition != null and mappingCondition != ''">
+            AND s0.mapping_condition LIKE CONCAT('%',#{mappingCondition,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="recordStatus != null">
+            AND s0.record_status = #{recordStatus,jdbcType=INTEGER}
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,28 @@
+<form id="viewerForm"
+      class="pageForm required-validate viewerForm"
+      method="post"
+      action="permissionUser/permissionUserEditor.do"
+      viewer-mode="${_pageViewerMode}"
+      onsubmit="return validateCallback(this, navTabAjaxDone);">
+    <#assign itemId = "${data.gid!?replace(',','')}">
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="50">
+            <input type="hidden" name="callbackType" value="forward" />
+            <input type="hidden" name="forwardUrl" value="permissionUser/permissionUserViewer?gid=${itemId}"/>
+            <#include "permissionUserViewData.html" />
+        </div>
+    </div>
+
+    <div class="formBar">
+        <ul>
+            <li><a>
+                <div class="buttonActive"><div class="buttonContent"><button type="submit">提 交</button></div></div>
+            </a></li>
+        </ul>
+        <ul>
+            <li><a href="permissionUser/permissionUserViewer?gid=${itemId}" type="button" target="navTab" rel="tabpermissionUser_${itemId}" title="ID：${itemId}">
+                <div class="buttonActive"><div class="buttonContent"><button type="button">返 回</button></div></div>
+            </a></li>
+        </ul>
+    </div>
+</form>

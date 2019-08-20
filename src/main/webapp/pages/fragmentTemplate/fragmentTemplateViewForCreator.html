@@ -1,0 +1,24 @@
+<form id="viewerForm"
+      class="pageForm required-validate viewerForm"
+      method="post"
+      action="fragmentTemplate/fragmentTemplateCreator.do"
+      viewer-mode="${_pageViewerMode}"
+      onsubmit="return validateCallback(this, navTabAjaxDone);">
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="50">
+            <input type="hidden" name="callbackType" value="closeCurrentAndForward"/>
+            <input type="hidden" name="forwardUrl" value="fragmentTemplate/fragmentTemplateViewer?id="/>
+            <input type="hidden" name="navTabId" value="tabFragmentTemplate_"/>
+            <input type="hidden" name="navTabTitle" value="碎片模板信息"/>
+            <#include "fragmentTemplateViewData.html" />
+        </div>
+    </div>
+
+    <div class="formBar">
+        <ul>
+            <li><a>
+                <div class="buttonActive"><div class="buttonContent"><button type="submit">创 建</button></div></div>
+            </a></li>
+        </ul>
+    </div>
+</form>

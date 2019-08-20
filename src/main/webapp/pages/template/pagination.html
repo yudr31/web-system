@@ -1,0 +1,12 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<div class="panelBar">
+    <div class="pages">
+        <span>每页</span>
+        <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value, pageNum: ${page.pageNum}})" initValue="${page.pageSize}">
+            ${dictDataUtil('getOptions','PageType',page.pageSize)}
+        </select>
+        <span>条，共${page.total}条</span>
+    </div>
+
+    <div class="pagination" targetType="navTab" totalCount="${page.total}" numPerPage="${page.pageSize}" pageNumShown="10" currentPage="${page.pageNum}"></div>
+</div>

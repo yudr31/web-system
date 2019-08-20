@@ -1,0 +1,46 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>属性映射信息表：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+	<label>全局ID</label>
+	<input name="gid" type="text" class="" value="${data.gid!?replace(',','')}" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+	<label>所属项目</label>
+	<select class="combox" name="belongProject">
+		<option value="all_project">所有项目</option>
+		${dictDataUtil('getOptions','ProjectType',param!)}
+	</select>
+</div>
+<div class="unit">
+	<label>表列类型</label>
+	<input name="columnType" type="text" class="" value="${data.columnType!}" size="40"/>
+</div>
+<div class="unit">
+	<label>属性类型</label>
+	<input name="fieldType" type="text" class="" value="${data.fieldType!}" size="40"/>
+</div>
+<div class="unit">
+	<label>判断条件</label>
+	<select class="combox" name="mappingCondition">
+		${dictDataUtil('getOptions','MappingCondition',data.mappingCondition)}
+	</select>
+</div>
+<div class="unit">
+	<label>状态</label>
+	<select class="combox" name="recordStatus">
+		${dictDataUtil('getOptions','RecordStatusType',data.recordStatus)}
+	</select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>创建时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+    <div class="unit" edit-mode="disabled" create-mode="hidden">
+        <label>更新时间：</label>
+        <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+    </div>
+</#if>

@@ -1,0 +1,38 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<thead>
+	<tr>
+		<th class="table-data-rowNum"><input type="checkbox" group="gids" class="checkboxCtrl">序号</th>
+		<th class="table-data-id">全局ID</th>
+		<th>所属项目</th>
+		<th>表列类型</th>
+		<th>属性类型</th>
+		<th>判断条件</th>
+		<th>状态</th>
+		<th>更新时间</th>
+		<th>创建时间</th>
+		<th>操作</th>
+	</tr>
+</thead>
+<tbody>
+<#list page.list as item>
+	<#assign itemId = "${item.gid!?replace(',','')}">
+	<tr rel="${itemId}" target="itemId">
+		<td><input name="gids" value="${itemId}" type="checkbox">${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+		<td><a href="field/fieldViewForViewer?gid=${itemId}" target="navTab" rel="tabFieldViewer${itemId}" title="等级：${itemId}">${itemId}</a></td>
+		<td>${item.belongProject!}</td>
+		<td>${item.columnType!}</td>
+		<td>${item.fieldType!}</td>
+		<td>${item.mappingCondition!}</td>
+		<td>${item.recordStatus!}</td>
+		<td>${htmlUtil('formatLongDateString',item.updateTime!)}</td>
+		<td>${htmlUtil('formatLongDateString',item.createTime!)}</td>
+        	<td>
+        		<a href="mappingField/mappingFieldViewer?gid=${itemId}" target="navTab" rel="tabmappingField_${itemId}"
+                title="等级ID：${itemId}" class=""> 【查看】 </a>
+        		<a href="mappingField/mappingFieldEditor?gid=${itemId}" target="navTab" rel="tabmappingField_${itemId}"
+                title="等级ID：${itemId}" class=""> 【编辑】 </a>
+        	</td>
+	</tr>
+</#list>
+</tbody>

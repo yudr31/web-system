@@ -1,0 +1,11 @@
+<div class="panelBar">
+    <div class="pages">
+        <span>每页 </span>
+        <select class="combox" name="numPerPage" onchange="dialogPageBreak({numPerPage:this.value})" initValue="${page.pageSize!}">
+            <option value="20">20</option>
+            <option value="40">40</option>
+        </select>
+        <span>条，共${page.total}条</span>
+    </div>
+    <div class="pagination" targetType="dialog" totalCount="${page.total}" numPerPage="${page.pageSize}" pageNumShown="10" currentPage="${page.pageNum}"></div>
+</div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>年年卡管理系统</title>
+    <link rel="shortcut icon" href="assets/image/favicon-nnk.png" type="image/x-icon"/>
+    <#include "include-style.html"/>
+    <#include "include-script.html"/>
+</head>
+
+<body scroll="yes">
+<div id="layout">
+    <div id="header">
+        <#include "header.html"/>
+    </div>
+    <div id="leftside">
+        <!--<div id="sidebar_s">-->
+            <!--<div class="collapse">-->
+                <!--<div class="toggleCollapse"><div></div></div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div id="sidebar">-->
+            <!--<div class="toggleCollapse"><h2>主菜单</h2><div>收缩</div></div>-->
+
+            <!--<div class="accordion" fillSpace="sidebar">-->
+                <!--<div class="accordionHeader">-->
+                    <!--<h2><span>Folder</span>界面组件</h2>-->
+                <!--</div>-->
+                <!--<div class="accordionContent">-->
+                    <!--<ul class="tree treeFolder">-->
+                        <!--<li>-->
+                            <!--<a href="tabsPage.html" target="navTab">主框架面板</a>-->
+                            <!--<ul>-->
+                                <!--<li><a href="genCode/index" target="navTab" rel="index">生成代码</a></li>-->
+                                <!--<li><a href="dataDict/dictTypeList" target="navTab" rel="dictTypeList">字典分类信息</a></li>-->
+                                <!--<li><a href="dataDict/dataDictList" target="navTab" rel="dataDictList">数据字典信息</a></li>-->
+                                <!--<li><a href="modelConfig/modelConfigList" target="navTab" rel="modelConfigList">模板配置</a></li>-->
+                                <!--<li><a href="fragmentTemplate/fragmentTemplateList" target="navTab" rel="fragmentTemplateList">碎片模板</a></li>-->
+                                <!--<li><a href="adminInfo/adminInfoList" target="navTab" rel="adminInfoList">用户信息</a></li>-->
+                                <!--<li><a href="permissionRole/permissionRoleList" target="navTab" rel="permissionRoleList">角色信息</a></li>-->
+                                <!--<li><a href="permissionMenu/permissionMenuList" target="navTab" rel="permissionMenuList">菜单信息</a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <#include "./sidebarFilter.html"/>
+    </div>
+    </div>
+    <div id="container">
+        <div id="navTab" class="tabsPage">
+            <div class="tabsPageHeader">
+                <div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+                    <ul class="navTab-tab">
+                        <li tabid="main" class="main">
+                            <a href="javascript:;">
+                                <span><span class="home_icon">欢迎页面</span></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabsLeft">left</div>
+                <!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+                <div class="tabsRight">right</div>
+                <!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+                <div class="tabsMore">more</div>
+            </div>
+            <ul class="tabsMoreList">
+                <li><a href="javascript:;">欢迎页面</a></li>
+            </ul>
+            <div class="navTab-panel tabsPageContent layoutBox">
+                <div class="page unitBox">
+                    <#include "../index/welcome.html"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <#include "footer.html"/>
+</div>
+</body>
+</html>

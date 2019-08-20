@@ -1,0 +1,58 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<div class="unit unitHeader" style="float: left">
+    <h2>用户权限模块的资源信息表：</h2>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>全局ID：</label>
+    <input name="gid" type="text" class="" value="${data.gid!?replace(',','')}" size="40" readonly="readonly"/>
+</div>
+<div class="unit">
+    <label>所属的App类型：</label>
+    <select class="combox" name="appType">
+        ${dictDataUtil('getOptions','AppType',data.appType)}
+    </select>
+</div>
+<div class="unit">
+    <label>菜单类型：</label>
+    <select class="combox" name="menuType">
+        ${dictDataUtil('getOptions','MenuType',data.menuType)}
+    </select>
+</div>
+<div class="unit">
+    <label>菜单名称：</label>
+    <input name="menuName" type="text" class="" value="${data.menuName!}" size="40"/>
+</div>
+<div class="unit">
+    <label>菜单描述：</label>
+    <input name="menuDesc" type="text" class="" value="${data.menuDesc!}" size="40"/>
+</div>
+<div class="unit">
+    <label>菜单父ID：</label>
+    <input name="parentId" type="text" lookupback="permissionMenu.gid" value="${data.parentId!}" class="editable" size="40"/>
+    <a class="btnLook" href="permissionMenu/permissionMenuListForCheck?lookUpType=oneUp" lookupgroup="permissionMenu">选择菜单</a>
+</div>
+<div class="unit">
+    <label>菜单链接：</label>
+    <input name="menuLink" type="text" class="" value="${data.menuLink!}" size="40"/>
+</div>
+<div class="unit">
+    <label>菜单序号：</label>
+    <input name="sort" type="text" class="digits" value="${data.sort!}" size="40"/>
+</div>
+<div class="unit">
+    <label>状态：</label>
+    <select class="combox" name="recordStatus">
+        ${dictDataUtil('getOptions','RecordStatusType',data.recordStatus)}
+    </select>
+</div>
+<#if _pageViewerMode != '_mode_creator'>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>创建时间：</label>
+    <input type="text" value="${htmlUtil('formatLongDateString',data.createTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+</div>
+<div class="unit" edit-mode="disabled" create-mode="hidden">
+    <label>更新时间：</label>
+    <input type="text" value="${htmlUtil('formatLongDateString',data.updateTime!'')}" datefmt="yyyy-MM-dd HH:mm:ss" class="date" size="40" readonly="true"/>
+</div>
+</#if>

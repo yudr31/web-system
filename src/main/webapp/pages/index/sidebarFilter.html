@@ -1,0 +1,50 @@
+<div id="sidebar_s">
+    <div class="collapse" style="display:block;">
+        <div class="toggleCollapse">
+            <div>aaa</div>
+        </div>
+    </div>
+</div>
+<div id="sidebar">
+<div class="toggleCollapse">
+    <h2>功能模块</h2>
+    <div>收缩</div>
+</div>
+
+<div class="accordion" fillSpace="sidebar">
+    <#list itemMenuList as parent>
+        <#if parent.menuType == 1>
+            <div class="accordionHeader">
+                <h2><span>Folder</span>${parent.menuName}</h2>
+            </div>
+            <div class="accordionContent">
+                <ul class="tree treeFolder">
+            <#list parent.children as child>
+                <#if child.menuType == 1>
+                    <li>
+                        <a>${child.menuName}</a>
+                        <ul>
+                            <#list child.children as item>
+                            <li>
+                                <a href="${item.menuLink}" target="navTab" rel="navTab_${item.menuName}">${item.menuName}</a>
+                            </li>
+                            </#list>
+                        </ul>
+                    </li>
+                <#elseif child.menuType == 2>
+                    <li>
+                        <a href="${child.menuLink}" target="navTab" rel="navTab_${child.menuName}">${child.menuName}</a>
+                    </li>
+                </#if>
+            </#list>
+                </ul>
+            </div>
+        <#elseif parent.menuType == 2>
+            <li>
+                <a href="${parent.menuLink}" target="navTab"
+                   rel="navTab_${parent.menuName}">${parent.menuName}</a>
+            </li>
+        </#if>
+    </#list>
+</div>
+</div>

@@ -1,0 +1,105 @@
+@charset "utf-8";
+div.button button,div.buttonHover button,div.buttonActive button,div.buttonDisabled button{padding:0 0 0 0;}
+div.searchBar div.subBar li{margin-left:10px;}
+div.pageHeader div.searchBar ul.searchContent li.rowHeader{width:100px;}
+div.pageHeader div.searchBar ul.searchContent li.rowHeader label{text-align:left}
+div.pageHeader div.searchBar ul.searchContent li label{width:120px;text-align:right}
+div.pageHeader div.searchBar div.subBar div.buttonContent button{min-width:60px;}
+div.pageHeader div.searchBar ul.searchContent li{overflow:visible;}
+div.pageHeader div.searchBar ul.searchContent li span.error{position:relative;top:-23px;left:263px;}
+span.inputInfo{margin-left:20px;}
+#container div.dividerLine{margin-top:30px;margin-bottom:20px;overflow:auto}
+
+/*#container div.unitHeader { margin-bottom: 5px; }*/
+
+/*.pageFormContent { margin-left: 5px; }*/
+.pageFormContent div.unit{float:left;width:100%;}
+.pageFormContent div.unit .textLink{margin-left:10px;line-height:30px;}
+.pageFormContent div.unit .textLink span{width:150px;text-align:center;}
+.pageFormContent div.unit span.textLinkTips{line-height:30px;}
+.pageFormContent div.unit label{padding:0px 15px;width:180px;}
+.pageFormContent div.unit label:first-child{text-align:right;}
+.pageFormContent div.unitHeader h2.contentTitle{padding-left:5px;margin-bottom:5px;}
+.pageFormContent div.unit span.error{position:relative;top:0px;left:0px; display: inline-block;}
+#commonPageFormContent div.unit label{width:180px;}
+.pageFormContent div.unit span.imageSlot{margin-left:15px;width:160px;height:150px;float:left;}
+.pageFormContent div.unit span.imageSlot a.imageThumb img{width:160px;height:120px;}
+.pageFormContent div.unit span.imageSlot a.imageSlotButton{margin-top:10px;margin-left:53px;}
+div.combox div.select a{min-width:124px;}
+div.panelBar div.combox div.select a{min-width:0px;}
+ul.comboxop{min-width:122px;}
+div.grid table thead tr th{min-width:60px;max-width:140px;}
+div.grid table thead tr th .table-data-rowNum{width:60px;}
+div.grid table thead tr th .table-data-id{width:140px;}
+div.grid table thead tr th .table-data-date{width:130px;}
+div.grid table thead tr th .table-data-time{min-width:80px;max-width:130px;}
+div.panelBar div.pages span{margin-right:3px;}
+.pageFormContent span.info{margin-left:5px;}
+
+/** review page  **/
+.commentWra{padding:0 10px;overflow:auto}
+.commentWra>ul{border-bottom:1px solid #ccc;background:#fff;}
+.commentWra>ul>li{}
+.commentWra>ul>li .commentDiv{padding:10px 0 0px 0px;border-top:1px solid #ccc;background:#fff;}
+.commentWra>ul>li .commentDiv.focus{background:#ebf2f9;}
+.commentWra>ul>li .commentDiv.respond{margin-left:42px;}
+.commentWra>ul>li .commentDiv .comment>p{float:left;width:32px;}
+.commentWra>ul>li .commentDiv .comment>p img{width:100%;}
+.commentWra>ul>li .commentDiv .titDiv{padding-left:42px;font-size:14px;font-weight:bold;color:#666;line-height:100%;margin-bottom:10px;}
+.commentWra>ul>li .commentDiv .titDiv a{color:#3b73af;margin-right:3px;}
+.commentWra>ul>li .commentDiv .titDiv a:hover{text-decoration:underline;}
+.commentWra>ul>li .commentDiv .commentCon{padding:0 20px 0 42px;}
+.commentWra>ul>li .commentDiv .commentCon p{font-size:14px;color:#333;line-height:20px;}
+.commentWra>ul>li .commentDiv .info{padding:10px 0 5px 42px;}
+.commentWra>ul>li .commentDiv .info a{color:#707070;font-size:12px;}
+.commentWra>ul>li .commentDiv .info a:hover{text-decoration:underline;}
+.commentWra>ul>li .commentDiv .info li:after{content:"•";color:#707070;padding:0 5px;font-size:12px;}
+.commentWra>ul>li .commentDiv .info li:last-child:after{content:"";padding:0;}
+
+/** view table  **/
+table.viewTable{padding-left:0px;text-align:center;border-color:#B9D1D7;border-style:solid;margin-left:210px;}
+table.viewTable tr th{height:20px;}
+table.viewTable tr td{height:25px;}
+table.viewTable tr input{width:78%;border:0;text-align:center;}
+table.viewTable tr select{align:center;}
+
+/** highcharts  **/
+.highcharts{width:1703px;height:700px;overflow:auto;}
+.highchartsLast{width:1703px;height:200px;overflow:auto;}
+
+/** icon */
+.icon.tick{background-image:url(../image/tick.png);background-repeat:no-repeat;display:block;height:16px;width:16px;top:5px;right:10px;margin-top:2px;}
+.icon.cross{background-image:url(../image/cross.png);background-repeat:no-repeat;display:block;height:16px;width:16px;top:5px;right:10px;margin-top:2px;}
+
+/* table state */
+.grid .gridTbody tr.tr-success,.grid .gridTbody tr.tr-success a{color:#1894ff;}
+.grid .gridTbody tr.tr-error,.grid .gridTbody tr.tr-error a{color:#ff0000}
+/*.grid .gridHeader th {min-width: 80px;}*/
+.nnk-mr15{margin-right:15px !important;}
+.nnk-plr15{padding: 0px 15px !important;}
+.nnk-plr10{padding: 0px 10px !important;}
+.nnk-plr5{padding: 0px 5px !important;}
+.nnk-copy,.nnk-copy.hover{background:url('../image/copy2.png') no-repeat 0px 0px;width:12px;height:14px;border:none;vertical-align:middle;cursor:pointer;}
+.nnk-tr-noresult td{text-align:center;}
+.nnk-filter-bar{height:auto;padding:10px 0px;overflow:hidden;}
+.nnk-filter-lbl{margin-left:5px; float: left; height: 22px; line-height: 22px;}
+.nnk-filter-btn{border:1px solid rgb(162,186,192);border-radius:2px;background-image:-moz-linear-gradient(90deg,rgb(217,232,239) 4%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(90deg,rgb(217,232,239) 4%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(90deg,rgb(217,232,239) 4%,rgb(255,255,255) 100%);height:20px;line-height:20px;display:inline-block;color:#183152;text-decoration:none!important;cursor:pointer;text-align:center;padding:0px 5px; float: left; margin-right: 15px;}
+.nnk-filter-btn.active,.nnk-filter-btn.active:hover{background-image:-moz-linear-gradient(90deg,rgb(24,49,82) 0%,rgb(104,139,185) 100%);background-image:-webkit-linear-gradient(90deg,rgb(24,49,82) 0%,rgb(104,139,185) 100%);background-image:-ms-linear-gradient(90deg,rgb(24,49,82) 0%,rgb(104,139,185) 100%);color:#FFF!important; border: none; height: 21px;}
+.nnk-filter-cut{width: 1px; height: 16px; vertical-align: middle; background-color:rgb(162,186,192); float: left; margin-top: 3px;}
+.grid .gridHeader th.nnk-default-asc{background: url('../image/default-up.png') no-repeat right; width: 9px; height: 6px;}
+
+.nnk-comboxop{min-width: 150px; padding: 0px;}
+.nnk-comboxop-ul{padding: 4px;}
+.nnk-muticontrols {border-top: 1px solid #ddd;box-shadow:0 0 2px rgba(0, 0, 0, 0.13); border-radius: 0 0 3px 3px;}
+.nnk-muticontrols a{display: inline-block; cursor: pointer; width: 50%; box-sizing: border-box; text-align: center;padding: 12px; line-height: 12px; text-decoration: none;}
+.nnk-muticontrols .btn-ok {border-right: 1px solid #DBDBDB; padding: 6px;}
+.nnk-muticontrols .btn-cancel {padding: 6px;}
+.nnk-comboxop .nnk-comboxop-ul a.nnk-combox-item{ float: left; padding: 0; width: 100%; text-decoration: none;}
+.nnk-comboxop .nnk-comboxop-ul a.nnk-combox-item input{margin-top: 3px; float: left;}
+/*.nnk-combox div.select a{min-width: 124px;}*/
+.nnk-comboxop-filter{padding: 5px 8px 2px;position: relative;}
+.nnk-comboxop-filter-input{width: 100%;position: relative; left: -3px;}
+
+table.cycleTable .selected {background: none;}
+table.cycleTable tr{position: relative;}
+.pageFormContent div.unit table.cycleTable span.error {display: none; position: absolute;}

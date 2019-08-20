@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.boot.web.mapper.FragmentTemplateMapper">
+
+	<select id="fetchRecordList" resultType="com.spring.boot.feign.pojo.web.FragmentTemplate">
+		SELECT * FROM fragment_template a
+		<where>
+			<if test="modelName != null and modelName != ''">
+				AND a.model_name LIKE  CONCAT('%', #{modelName}, '%')
+			</if>
+			<if test="modelType != null and modelType != ''">
+				AND a.model_type = #{modelType}
+			</if>
+		</where>
+	</select>
+
+</mapper>

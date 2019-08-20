@@ -1,0 +1,20 @@
+<form id="viewerForm"
+      class="pageForm required-validate viewerForm"
+      viewer-mode="${_pageViewerMode}"
+      onsubmit="return validateCallback(this, navTabAjaxDone);">
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="50">
+            <#include "mappingFieldViewData.html" />
+        </div>
+    </div>
+
+	<#assign itemId = "${data.gid!?replace(',','')}">
+    <div class="formBar">
+        <ul>
+            <li><a href="mappingField/mappingFieldEditor?gid=${itemId}" type="button" target="navTab" rel="tabmappingField_${itemId}" title="编辑：${itemId}">
+                <div class="buttonActive"><div class="buttonContent"><button type="button">编 辑</button></div></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</form>

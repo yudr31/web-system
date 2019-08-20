@@ -1,0 +1,74 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<form id="pagerForm" class="search-pager-form" method="post" action="permissionResource/permissionResourceList">
+    <#include "./../../template/search-page-form.html"/>
+</form>
+
+<form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="permissionResource/permissionResourceList"
+      onsubmit="return ($(this).valid() && navTabSearch(this))">
+	<div class="pageHeader">
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>全局ID：</label>
+					<input type="text" name="gid" class="unSubmitBlank" value="${param.gid!}"/>
+				</li>
+				<li>
+					<label>所属的App类型：</label>
+					<select class="combox" name="appType">
+						${dictDataUtil('getOptionsWithNull','AppType',param.appType)}
+					</select>
+				</li>
+				<li>
+					<label>拥有者的主体类型：</label>
+					<select class="combox" name="subjectType">
+						${dictDataUtil('getOptionsWithNull','SubjectType',param.subjectType)}
+					</select>
+				</li>
+				<li>
+					<label>主体ID：</label>
+					<input type="text" name="subjectName" class="unSubmitBlank" value="${param.subjectName!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>菜单名称：</label>
+					<input type="text" name="menuName" class="unSubmitBlank" value="${param.menuName!}"/>
+				</li>
+				<li>
+					<label>是否黑名单：</label>
+					<select class="combox" name="isForbidden">
+						${dictDataUtil('getOptionsWithNull','Boolean',param.isForbidden)}
+					</select>
+				</li>
+				<li>
+					<label>是否禁止该连接：</label>
+					<select class="combox" name="isDisabled">
+						${dictDataUtil('getOptionsWithNull','Boolean',param.isDisabled)}
+					</select>
+				</li>
+				<li>
+					<label>状态：</label>
+					<select class="combox" name="recordStatus" class="digits unSubmitBlank">
+						${dictDataUtil('getOptionsWithNull','RecordStatusType',param.recordStatus)}
+					</select>
+				</li>
+			</ul>
+			</ul>
+            <#include "./../../template/search-bar-action.html"/>
+        </div>
+    </div>
+</form>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="permissionResource/permissionResourceCreator" target="navTab" title="创建角色和资源的对应信息" rel="tabpermissionResourceCreator"><span>添加</span></a></li>
+            <li><a class="delete" href="permissionResource/permissionResourceDeleter.do" target="selectedTodo" title="确定要删除吗？" warn="请选择一条角色和资源的对应信息" rel="gids"><span>删除</span></a></li>
+            <li><a class="edit" href="permissionResource/permissionResourceEditor?gid={itemId}" target="navTab" warn="请选择一条角色和资源的对应信息" rel="gids"><span>编辑</span></a></li>
+        </ul>
+    </div>
+    <#include "./../../template/pagination.html"/>
+    <table class="table" style="width: 100%" selectRel="gids" layoutH="172">
+        <#include "permissionResourceListTable.html"/>
+    </table>
+</div>

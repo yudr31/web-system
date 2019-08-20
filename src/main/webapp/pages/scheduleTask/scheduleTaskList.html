@@ -1,0 +1,53 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<form id="pagerForm" class="search-pager-form" method="post" action="scheduleTask/scheduleTaskList">
+    <#include "./../../template/search-page-form.html"/>
+</form>
+
+<form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="scheduleTask/scheduleTaskList"
+      onsubmit="return ($(this).valid() && navTabSearch(this))">
+	<div class="pageHeader">
+		<div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>全局ID：</label>
+					<input type="text" name="gid" class="unSubmitBlank" value="${param.gid!}"/>
+				</li>
+				<li>
+					<label>任务名：</label>
+					<input type="text" name="jobName" class="unSubmitBlank" value="${param.jobName!}"/>
+				</li>
+				<li>
+					<label>任务分组：</label>
+					<input type="text" name="jobGroup" class="unSubmitBlank" value="${param.jobGroup!}"/>
+				</li>
+				<li>
+					<label>任务状态：</label>
+					<input type="text" name="jobStatus" class="digits unSubmitBlank" value="${param.jobStatus!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>状态：</label>
+					<select name="recordStatus" class="combox" class="editable" initValue="${param.recordStatus!}">
+						${dictDataUtil('getOptionsWithNull','RecordStatusType',param.fieldName)}
+					</select>
+				</li>
+			</ul>
+            <#include "./../../template/search-bar-action.html"/>
+        </div>
+    </div>
+</form>
+
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="scheduleTask/scheduleTaskCreator" target="navTab" title="创建定时任务配置信息" rel="tabscheduleTaskCreator"><span>添加</span></a></li>
+            <li><a class="delete" href="scheduleTask/scheduleTaskDeleter.do" target="selectedTodo" title="确定要删除吗？" warn="请选择一条定时任务配置信息" rel="gids"><span>删除</span></a></li>
+            <li><a class="edit" href="scheduleTask/scheduleTaskEditor?gid={itemId}" target="navTab" warn="请选择一条定时任务配置信息" rel="gids"><span>编辑</span></a></li>
+        </ul>
+    </div>
+    <#include "./../../template/pagination.html"/>
+    <table class="table" style="width: 100%" selectRel="gids" layoutH="172">
+        <#include "scheduleTaskListTable.html"/>
+    </table>
+</div>

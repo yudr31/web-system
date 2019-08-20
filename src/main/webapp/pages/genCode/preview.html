@@ -1,0 +1,37 @@
+<form id="viewerForm"
+      class="pageForm required-validate viewerForm"
+      method="post"
+      action="genCode/previewGenerate"
+      viewer-mode=""
+      onsubmit="return validateCallback(this, downloadPreviewFile);">
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="50">
+            <div class="unit">
+                <label>生成文件路径：</label>
+                <input type="text" name="savePath" value="${result.model.savePath}" class="required" size="80">
+            </div>
+            <div class="unit">
+                <label>生成文件名：</label>
+                <input type="text" name="fileName" value="${result.model.fileName}" class="required" size="80">
+            </div>
+            <div class="unit">
+                <label>生成文件内容文件名：</label>
+                <textarea type="text" rows="25" cols="120" name="modelContent">${result.content!}</textarea>
+            </div>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li><a>
+                    <div class="buttonActive"><div class="buttonContent"><button type="submit">创 建</button></div></div>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+</form>
+<script>
+    function downloadPreviewFile(json) {
+        var resultDetail = json[DWZ.keys.resultDetail];
+        window.location.href = 'genCode/downloadPreviewFile?fileName=' + resultDetail;
+    }
+</script>

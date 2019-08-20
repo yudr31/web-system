@@ -1,0 +1,44 @@
+<div class="accountInfo">
+    <div class="right">
+        <p>今天日期：${.now}</p>
+    </div>
+    <p>
+        <span>欢迎你：</span>
+    </p>
+</div>
+
+<div class="pageContent" layoutH="80" style="margin-right:230px">
+    <div id="div_ystep1"></div>
+</div>
+<script>
+    function initYsstep() {
+        $("#div_ystep1").loadStep({
+            //ystep的外观大小
+            //可选值：small,large
+            size: "large",
+            //ystep配色方案
+            //可选值：green,blue
+            color: "blue",
+            //ystep中包含的步骤
+            steps: [{
+                //步骤名称
+                title: "开始",
+                //步骤内容(鼠标移动到本步骤节点时，会提示该内容)
+                content: "流程开始"
+            }, {
+                title: "审批",
+                content: "各个角色开始审批"
+            }, {
+                title: "实施",
+                content: "需求开始实施"
+            }, {
+                title: "结束",
+                content: "流程结束"
+            }]
+        });
+        $("#div_ystep1").setStep(3);
+    }
+
+    initYsstep();
+
+</script>

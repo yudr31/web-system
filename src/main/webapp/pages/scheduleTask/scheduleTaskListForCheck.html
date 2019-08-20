@@ -1,0 +1,105 @@
+<form id="pagerForm" method="post" action="scheduleTask/scheduleTaskListForCheck?lookUpType=${lookUpType}">
+    <input type="hidden" name="pageNum" value="${page.pageNum}" />
+    <input type="hidden" name="numPerPage" value="${page.pageSize}" />
+</form>
+<div class="pageHeader" look-up="lookUp" look-up-type="${lookUpType}">
+   <form id="inputForm" class="search-input-form" method="post" rel="pagerForm" action="scheduleTask/scheduleTaskListForCheck?lookUpType=${lookUpType}"
+   onsubmit="return dialogSearch(this);" >
+	   <div class="searchBar">
+			<ul class="searchContent">
+				<li>
+					<label>全局ID：</label>
+					<input type="text" name="gid" class=" unSubmitBlank" value="${param.gid!}"/>
+				</li>
+				<li>
+					<label>任务名：</label>
+					<input type="text" name="jobName" class=" unSubmitBlank" value="${param.jobName!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>任务分组：</label>
+					<input type="text" name="jobGroup" class=" unSubmitBlank" value="${param.jobGroup!}"/>
+				</li>
+				<li>
+					<label>任务状态：</label>
+					<input type="text" name="jobStatus" class="digits unSubmitBlank" value="${param.jobStatus!}"/>
+				</li>
+			</ul>
+			<ul class="searchContent">
+				<li>
+					<label>状态：</label>
+					<select name="recordStatus" class="combox" class="editable" initValue="${param.recordStatus}">
+					<%=HtmlUtils.getSelectorForEnumerWithNone(RecordStatusTypeEnumer.class)%>
+					</select>
+				</li>
+			</ul>
+			<div class="subBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">查询</button></div></div></li>
+					<li>
+						<div class="button">
+							<div class="buttonContent">
+								<button type="button" multLookupList="gid" warn="请选择信息" multlookupcallback="callBackScheduleTask">选择带回</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent" look-up="lookUp" look-up-type="${lookUpType}">
+	<table class="table" layoutH="118" targetType="dialog" width="100%">
+		<thead>
+			<tr>
+				<th up-type="one" class="lookUpCs">操作</th>
+				<th class="table-data-rowNum">序号</th>
+				<th>全局ID</th>
+				<th>任务名</th>
+				<th>任务分组</th>
+				<th>定时任务配置</th>
+				<th>定时任务备注</th>
+				<th>任务状态</th>
+				<th>状态</th>
+				<th>更新时间</th>
+				<th>创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+		<#list page.list as item>
+			<#assign itemId = "${item.gid!?replace(',','')}">
+			<tr rel="${itemId}" target="itemId">
+				<td up-type="one" class="lookUpCs">
+					<a class="btnSelect" href="javascript:$.bringBack({
+						gid:'${item.gid}',
+						jobName:'${item.jobName}',
+						jobGroup:'${item.jobGroup}',
+						cron:'${item.cron}',
+						remark:'${item.remark}',
+						jobStatus:'${item.jobStatus}',
+						status:'${item.recordStatus}',
+						statusName:'${statusName}',
+					});" title="查找带回">选择</a>
+				</td>
+				<td>${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+				<td>${item.gid}</td>
+				<td>${item.jobName}</td>
+				<td>${item.jobGroup}</td>
+				<td>${item.cron}</td>
+				<td>${item.remark}</td>
+				<td>${item.jobStatus}</td>
+				<td>${nnk:getEnumStringForNumber(RecordStatusTypeEnumer, item.recordStatus.number)}</td>
+				<td>${item.updateTime}</td>
+				<td>${item.createTime}</td>
+			</tr>
+		</#list>
+		</tbody>
+	</table>
+		<script>
+			function changeSelect(obj) {
+				$("input[name='gid']",$.pdialog.getCurrent()).prop("checked",obj.checked);
+			}
+		</script>
+		<#include "./../../template/paginationForDialog.html"/>
+</div>

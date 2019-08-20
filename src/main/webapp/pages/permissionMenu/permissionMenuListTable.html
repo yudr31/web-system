@@ -1,0 +1,44 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<#assign htmlUtil = "com.spring.boot.web.util.HtmlUtil"?new()/>
+<thead>
+<tr>
+    <th class="table-data-rowNum"><input type="checkbox" group="gids" class="checkboxCtrl">序号</th>
+    <th class="table-data-id">全局ID</th>
+    <th>所属的App类型</th>
+    <th>菜单类型</th>
+    <th>菜单名称</th>
+    <th>菜单描述</th>
+    <th>菜单父ID</th>
+    <th>菜单链接</th>
+    <th>菜单序号</th>
+    <th>状态</th>
+    <th>更新时间</th>
+    <th>创建时间</th>
+    <th>操作</th>
+</tr>
+</thead>
+<tbody>
+<#list page.list as item>
+<#assign itemId = "${item.gid!?replace(',','')}">
+<tr rel="${itemId}" target="itemId">
+    <td><input name="gids" value="${itemId}" type="checkbox">${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+    <td><a href="menu/menuViewForViewer?gid=${itemId}" target="navTab" rel="tabMenuViewer${itemId}" title="等级：${itemId}">${itemId}</a></td>
+    <td>${dictDataUtil('getDictLabelByValue','AppType',item.appType)}</td>
+    <td>${dictDataUtil('getDictLabelByValue','MenuType',item.menuType)}</td>
+    <td>${item.menuName!}</td>
+    <td>${item.menuDesc!}</td>
+    <td>${item.parentId!}</td>
+    <td>${item.menuLink!}</td>
+    <td>${item.sort!}</td>
+    <td>${dictDataUtil('getDictLabelByValue','RecordStatusType',item.recordStatus)}</td>
+    <td>${htmlUtil('formatLongDateString',item.updateTime!)}</td>
+    <td>${htmlUtil('formatLongDateString',item.createTime!)}</td>
+    <td>
+        <a href="permissionMenu/permissionMenuViewer?gid=${itemId}" target="navTab" rel="tabpermissionMenu_${itemId}"
+           title="等级ID：${itemId}" class=""> 【查看】 </a>
+        <a href="permissionMenu/permissionMenuEditor?gid=${itemId}" target="navTab" rel="tabpermissionMenu_${itemId}"
+           title="等级ID：${itemId}" class=""> 【编辑】 </a>
+    </td>
+</tr>
+</#list>
+</tbody>

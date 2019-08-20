@@ -1,0 +1,41 @@
+<#assign dictDataUtil = "com.spring.boot.web.util.DictDataUtil"?new()/>
+<thead>
+<tr>
+    <th class="table-data-rowNum"><input type="checkbox" group="gids" class="checkboxCtrl">序号</th>
+    <th class="table-data-id">用户ID</th>
+    <th>用户名</th>
+    <th>登录标识</th>
+    <th>登录次数</th>
+    <th>登录失败次数</th>
+    <th>锁定状态</th>
+    <th>登录时间</th>
+    <th>状态</th>
+    <th>更新时间</th>
+    <th>创建时间</th>
+    <th>操作</th>
+</tr>
+</thead>
+<tbody>
+<#list page.list as item>
+<#assign itemId = "${item.gid!?replace(',','')}">
+<tr rel="${itemId}" target="itemId">
+    <td><input name="gids" value="${itemId}" type="checkbox">${item_index + 1 + (page.pageNum - 1) * page.pageSize}</td>
+    <td><a href="info/infoViewForViewer?gid=${itemId}" target="navTab" rel="tabInfoViewer${itemId}" title="等级：${itemId}">${itemId}</a></td>
+    <td>${item.userName!}</td>
+    <td>${item.loginFlag!}</td>
+    <td>${item.loginCount!}</td>
+    <td>${item.failCount!}</td>
+    <td>${item.lockStatus!}</td>
+    <td>${item.loginTime!}</td>
+    <td>${item.recordStatus!}</td>
+    <td>${item.updateTime!}</td>
+    <td>${item.createTime!}</td>
+    <td>
+        <a href="adminInfo/adminInfoViewer?gid=${itemId}" target="navTab" rel="tabadminInfo_${itemId}"
+           title="等级ID：${itemId}" class=""> 【查看】 </a>
+        <a href="adminInfo/adminInfoEditor?gid=${itemId}" target="navTab" rel="tabadminInfo_${itemId}"
+           title="等级ID：${itemId}" class=""> 【编辑】 </a>
+    </td>
+</tr>
+</#list>
+</tbody>

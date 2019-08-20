@@ -1,0 +1,78 @@
+<form id="tableForm" class="generate-table-form" method="post"
+      action="genCode/generateSingleTable" onsubmit="return validateCallback(this, download);">
+    <div class="pageContent" layoutH="50">
+        <div class="pageFormContent">
+            <input type="hidden" name="belongProject" value="${tableInfo.belongProject!}">
+            <input type="hidden" name="tableName" value="${tableInfo.tableName!}">
+            <input type="hidden" name="priKey" value="${tableInfo.priKey!}">
+            <input type="hidden" name="entityName" value="${tableInfo.moduleName!}${tableInfo.infoName!?cap_first!}">
+            <p style="float: left">
+                <label>sql文件名：</label>
+                <input type="text" name="sqlFile" class="required unSubmitBlank" value="${tableInfo.moduleName!}"/>
+            </p>
+            <p style="float: left">
+                <label>ptoto协议文件名：</label>
+                <input type="text" name="protoFile" class="required unSubmitBlank" value="${tableInfo.moduleName!}"/>
+            </p>
+            <p style="float: left">
+                <label>模块包名：</label>
+                <input type="text" name="modulePkg" class="required unSubmitBlank" value="${tableInfo.moduleName!}"/>
+            </p>
+            <p style="float: left">
+                <label>协议实体名：</label>
+                <input type="text" name="protoEntity" class="required unSubmitBlank" value="${tableInfo.moduleName!?cap_first}${tableInfo.infoName!?cap_first}"/>
+            </p>
+            <p style="float: left">
+                <label>协议实体简称：</label>
+                <input type="text" name="infoName" class="required unSubmitBlank" value="${tableInfo.infoName!}"/>
+            </p>
+            <p style="float: left">
+                <label>表注释：</label>
+                <input type="text" name="tableComment" class="required unSubmitBlank" value="${tableInfo.tableComment!}"/>
+            </p>
+        </div>
+        <div class="panel">
+            <div class="panelHeader">
+                <div class="panelHeaderContent">
+                    <h1 style="cursor: move;">
+                        选择预览文件
+                    </h1>
+                </div>
+            </div>
+            <div class="panelContent">
+                <#list tableInfo.modelList as item>
+                    <input name="preview" type="radio" value="${item.gid!?replace(',','')}" <#if item_index == 0>checked</#if>>${item.modelName}
+                </#list>
+                <p>
+                    <input name="moduleType" type="checkbox" value="1" checked>生成一般接口
+                    <input name="moduleType" type="checkbox" value="3">生成批量添加接口
+                    <a class="button" style="float: right"><span onclick="preview(this)">预览</span></a>
+                </p>
+            </div>
+            <div class="panelFooter"><div class="panelFooterContent"></div></div>
+        </div>
+        <div class="tbs">
+            <div class="tbsContent singleTableInfo">
+                <table class="table" style="width: 100%" selectRel="gids">
+                    <#include "listTable.html"/>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="formBar" layoutH="10">
+        <ul>
+            <li><a>
+                <div class="buttonActive"><div class="buttonContent"><button type="submit">创 建</button></div></div>
+            </a></li>
+        </ul>
+    </div>
+</form>
+<script>
+    function preview($this) {
+        navTab.openTab("test", "genCode/previewSingleTable",{title:"预览",data: $('#tableForm',navTab.getCurrentPanel()).serializeArray()});
+    }
+    function download(json) {
+        var data = json[DWZ.keys.resultDetail];
+        window.location.href = 'genCode/download?fileName=' + data;
+    }
+</script>

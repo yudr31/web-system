@@ -1,0 +1,36 @@
+<#list masterSlave.slave as slave>
+    <div class="panel collapse">
+        <div class="panelHeader">
+            <div class="panelHeaderContent">
+                <h1 style="cursor: move;">${slave.tableName} 从表表信息</h1>
+                <a href="javascript:" class="collapsable"></a>
+            </div>
+        </div>
+        <div class="j-resizeGrid panelContent">
+            <input type="hidden" name="slave[${slave_index}].tableName" value="${slave.tableName!}">
+            <input type="hidden" name="slave[${slave_index}].priKey" value="${slave.priKey!}">
+            <input type="hidden" name="slave[${slave_index}].entityName" value="${slave.moduleName!}${slave.infoName!?cap_first!}">
+
+            <p style="float: left; padding-right: 30px">
+                <label>协议实体名：</label>
+                <input type="text" name="slave[${slave_index}].protoEntity" class="required unSubmitBlank" value="${slave.moduleName!?cap_first}${slave.infoName!?cap_first}"/>
+            </p>
+            <p style="float: left; padding-right: 30px">
+                <label>实体信息简称：</label>
+                <input type="text" name="slave[${slave_index}].infoName" class="required unSubmitBlank" value="${slave.infoName!}"/>
+            </p>
+            <p style="float: left; padding-right: 30px">
+                <label>表注释：</label>
+                <input type="text" name="slave[${slave_index}].tableComment" class="required unSubmitBlank" value="${slave.tableComment!}"/>
+            </p>
+            <p style="float: left; padding-right: 30px">
+                <label>与主表关联属性：</label>
+                <input type="text" name="slave[${slave_index}].linkItem" class="required unSubmitBlank" value=""/>
+            </p>
+            <table class="table" style="width: 100%" selectRel="gids">
+                <#include "slaveListTable.html"/>
+            </table>
+        </div>
+        <div class="panelFooter"><div class="panelFooterContent"></div></div>
+    </div>
+</#list>
