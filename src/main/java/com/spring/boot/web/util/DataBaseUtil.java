@@ -4,6 +4,8 @@ import com.spring.boot.web.dto.ColumnInfoDTO;
 import com.spring.boot.web.dto.NnkTableInfoDTO;
 import com.spring.boot.web.dto.TableInfoDTO;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.Properties;
@@ -11,6 +13,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class DataBaseUtil {
 
 	private static Properties props = new Properties();
@@ -22,20 +25,30 @@ public class DataBaseUtil {
 	private static String url;
 	private static String userName;
 	private static String password;
-	
-	static{
-		ResourceBundle resource = ResourceBundle.getBundle("jdbc");
-		driveName = resource.getString("spring.datasource.driver-class-name");
-		url = resource.getString("spring.datasource.url");
-		userName = resource.getString("spring.datasource.username");
-		password = resource.getString("spring.datasource.password");
 
-		props.setProperty("user",userName);
-		props.setProperty("password",password);
-		props.setProperty("remarks","true");
-		props.setProperty("useInformationSchema","true");
+
+	@Value("${temp.datasource.driver-class-name}")
+	public void setDriveName(String driveName) {
+		DataBaseUtil.driveName = driveName;
 	}
-	
+
+	@Value("${temp.datasource.url}")
+	public void setUrl(String url) {
+		DataBaseUtil.url = url;
+	}
+
+	@Value("${temp.datasource.username}")
+	public void setUserName(String userName) {
+		DataBaseUtil.userName = userName;
+		props.setProperty("user", DataBaseUtil.userName);
+	}
+
+	@Value("${temp.datasource.password}")
+	public void setPassword(String password) {
+		DataBaseUtil.password = password;
+		props.setProperty("password", DataBaseUtil.password);
+	}
+
 	public static NnkTableInfoDTO getTableInfo(NnkTableInfoDTO tableInfo, String belongProject){
 		try {
 			Class.forName(driveName);
