@@ -25,9 +25,9 @@ public class NumberUtil {
         return result;
     }
 
-    public static void main(String[] args) {
-        List<Integer> list = splitNumber(8);
-        list.forEach(System.out::println);
-    }
+//    public static void main(String[] args) {
+//        List<Integer> list = splitNumber(8);
+//        list.forEach(System.out::println);
+//    }
 
 }
