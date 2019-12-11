@@ -1,10 +1,65 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.95.128:3306/spring_boot?useUnicode=true&useSSL=false&characterEncoding=UTF8
-    username: root
-    password: 123456
+server:
+  port: 9200
 
-  redis:
-    host: 192.168.95.128
-    port: 6379
+spring:
+  application:
+    name: web-system
+
+  datasource:
+    hikari:
+      maximum-pool-size: 100
+      minimum-idle: 5
+      idle-timeout: 20
+      connection-timeout: 2000
+      connection-test-query: SELECT 1
+      validation-timeout: 3000
+      max-lifetime: 60000
+      login-timeout: 5
+  main:
+    allow-bean-definition-overriding: true
+
+  #freemarker config
+  freemarker:
+    cache: false
+    checkTemplateLocation: true
+    contentType: text/html
+    suffix: .html
+    templateEncoding: UTF-8
+    templateLoaderPath: pages/
+    settings:
+      number_format: 0.##
+
+# mybatis
+mybatis:
+  typeAliasesPackage: com.spring.boot.web.mapper
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+swagger:
+  api:
+    description: web系统管理服务
+
+logging:
+  level:
+    com.spring: info
+  path: logs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    endpoint:
+      health:
+        show-details: ALWAYS
+
+info:
+  app:
+    name: web-system
+  company:
+    name: yudr
+  build:
+    artifactId: $project.artifactId$
+    version: $project.version$

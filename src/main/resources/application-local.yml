@@ -1,0 +1,30 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9001/eureka/  # 设置与Eureka Server交互的地址查询服务和注册服务
+  instance:
+    instance-id: permission-id
+    prefer-ip-address: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.95.128:3306/code_util?useUnicode=true&useSSL=false&characterEncoding=UTF8
+    username: root
+    password: 123456
+
+  redis:
+    host: 192.168.95.128
+    port: 6379
+
+temp:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.95.128:3306/temp?useUnicode=true&useSSL=false&characterEncoding=UTF8
+    username: root
+    password: 123456
+
+#请求处理的超时时间
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 12000
